@@ -120,13 +120,15 @@ body {
     height: auto;
     filter: drop-shadow(0 0 20px var(--color-neon-purple));
     animation: glitch 2s infinite;
+    margin-bottom: 1rem;
 }
 
 .cursed-text {
-    font-size: 1.5rem;
-    margin-top: 2rem;
+    font-size: 1.2rem;
     color: var(--color-crimson);
     text-shadow: 0 0 10px var(--color-crimson);
+    margin-top: 0;
+    font-style: italic;
 }
 
 /* Section Styles */
@@ -153,7 +155,8 @@ section {
 }
 
 .animated-logo {
-    padding: 2rem 0;
+    margin-top: 60px;
+    padding: 1.5rem 0;
     text-align: center;
     background: linear-gradient(45deg, var(--color-black), var(--color-purple));
 }
@@ -513,16 +516,16 @@ section {
     }
 
     .animated-logo {
-        margin-top: 60px;
-        padding: 1.5rem 1rem;
+        margin-top: 50px;
+        padding: 1rem 0;
     }
 
-    .album {
-        padding: 1rem;
+    .hero-logo-image {
+        margin-bottom: 0.8rem;
     }
 
-    .tracks-list li {
-        padding: 0.2rem 0;
+    .cursed-text {
+        font-size: 1rem;
     }
 
     .about-section,
