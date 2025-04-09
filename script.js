@@ -165,7 +165,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const audioPlayers = document.querySelectorAll('.custom-audio-player');
     let currentlyPlaying = null;
 
-    audioPlayers.forEach(function(player) {
+    audioPlayers.forEach(player => {
         const audio = player.querySelector('audio');
         const playButton = player.querySelector('.play-button');
         const progressBar = player.querySelector('.progress');
@@ -183,17 +183,25 @@ document.addEventListener('DOMContentLoaded', () => {
             if (!audio) return;
 
             if (audio.paused) {
+                // Pausa qualquer áudio que esteja tocando
                 if (currentlyPlaying && currentlyPlaying !== audio) {
                     currentlyPlaying.pause();
-                    const prevButton = currentlyPlaying.parentElement.querySelector('.play-button');
-                    if (prevButton) prevButton.textContent = '▶';
+                    const prevButton = currentlyPlaying.parentElement.parentElement.querySelector('.play-button');
+                    if (prevButton) {
+                        prevButton.textContent = '▶';
+                    }
                 }
-                audio.play().catch(function(error) {
+
+                // Toca o novo áudio
+                audio.play().then(() => {
+                    playButton.textContent = '⏸';
+                    currentlyPlaying = audio;
+                }).catch(error => {
                     console.error('Erro ao tocar áudio:', error);
+                    playButton.textContent = '⚠';
                 });
-                playButton.textContent = '⏸';
-                currentlyPlaying = audio;
             } else {
+                // Pausa o áudio atual
                 audio.pause();
                 playButton.textContent = '▶';
                 currentlyPlaying = null;
@@ -201,31 +209,31 @@ document.addEventListener('DOMContentLoaded', () => {
         });
 
         // Atualizar barra de progresso
-        if (audio) {
-            audio.addEventListener('timeupdate', function() {
-                const progress = (audio.currentTime / audio.duration) * 100;
-                progressBar.style.width = progress + '%';
-            });
+        audio.addEventListener('timeupdate', function() {
+            const progress = (audio.currentTime / audio.duration) * 100;
+            progressBar.style.width = progress + '%';
+        });
 
-            // Controle de volume
-            volumeSlider.addEventListener('input', function() {
-                audio.volume = volumeSlider.value / 100;
-                updateVolumeIcon(audio.volume);
-            });
+        // Controle de volume
+        volumeSlider.addEventListener('input', function() {
+            const volume = volumeSlider.value / 100;
+            audio.volume = volume;
+            updateVolumeIcon(volume);
+        });
 
-            // Quando a música termina
-            audio.addEventListener('ended', function() {
-                playButton.textContent = '▶';
-                currentlyPlaying = null;
-            });
+        // Quando a música termina
+        audio.addEventListener('ended', function() {
+            playButton.textContent = '▶';
+            currentlyPlaying = null;
+            progressBar.style.width = '0%';
+        });
 
-            // Tratamento de erros
-            audio.addEventListener('error', function(e) {
-                console.error('Erro no áudio:', e);
-                playButton.textContent = '⚠';
-                playButton.disabled = true;
-            });
-        }
+        // Tratamento de erros
+        audio.addEventListener('error', function(e) {
+            console.error('Erro no áudio:', e);
+            playButton.textContent = '⚠';
+            playButton.disabled = true;
+        });
 
         // Função para atualizar o ícone de volume
         function updateVolumeIcon(volume) {
@@ -240,6 +248,19 @@ document.addEventListener('DOMContentLoaded', () => {
 
         // Definir ícone de volume inicial
         updateVolumeIcon(0.2);
+
+        // Permitir clique na barra de progresso para navegar na música
+        const progressContainer = player.querySelector('.progress-bar');
+        progressContainer.addEventListener('click', function(e) {
+            if (!audio.duration) return;
+            
+            const rect = this.getBoundingClientRect();
+            const x = e.clientX - rect.left;
+            const width = rect.width;
+            const percentage = x / width;
+            
+            audio.currentTime = audio.duration * percentage;
+        });
     });
 
     // Comments functionality
