@@ -172,21 +172,19 @@ document.addEventListener('DOMContentLoaded', () => {
         const volumeSlider = player.querySelector('.volume-slider');
         const volumeIcon = player.querySelector('.volume-icon');
 
+        if (!audio || !playButton || !progressBar || !volumeSlider || !volumeIcon) return;
+
         // Definir volume inicial
-        if (audio) {
-            audio.volume = 0.2;
-            volumeSlider.value = 20;
-        }
+        audio.volume = 0.2;
+        volumeSlider.value = 20;
 
         // Controle de Play/Pause
         playButton.addEventListener('click', function() {
-            if (!audio) return;
-
             if (audio.paused) {
                 // Pausa qualquer áudio que esteja tocando
                 if (currentlyPlaying && currentlyPlaying !== audio) {
                     currentlyPlaying.pause();
-                    const prevButton = currentlyPlaying.parentElement.parentElement.querySelector('.play-button');
+                    const prevButton = currentlyPlaying.parentElement.querySelector('.play-button');
                     if (prevButton) {
                         prevButton.textContent = '▶';
                     }
@@ -356,15 +354,4 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
     }
-});
-
-@keyframes fadeIn {
-    from {
-        opacity: 0;
-        transform: translateY(20px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
-} 
+}); 
