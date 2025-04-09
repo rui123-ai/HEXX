@@ -913,6 +913,73 @@ section {
     border-bottom: 2px solid #6b2cf5;
 }
 
+.pretty-reckless-box {
+    max-width: 1200px;
+    margin: 0 auto 2rem auto;
+    padding: 2rem;
+    background: rgba(0, 0, 0, 0.5);
+    border-radius: 15px;
+    box-shadow: 0 0 20px rgba(107, 44, 245, 0.3);
+    border: 2px solid #ff00ff;
+}
+
+.pretty-title {
+    color: #ff00ff;
+    font-size: 3rem;
+    text-align: center;
+    margin-bottom: 1rem;
+    font-family: 'Cinzel', serif;
+    text-shadow: 0 0 15px rgba(255, 0, 255, 0.7);
+    letter-spacing: 3px;
+}
+
+.pretty-subtitle {
+    color: #ff0066;
+    font-size: 1.5rem;
+    text-align: center;
+    margin-bottom: 2rem;
+    font-style: italic;
+    text-shadow: 0 0 10px rgba(255, 0, 102, 0.5);
+}
+
+.launch-tag {
+    background: #ff0066;
+    color: #fff;
+    padding: 0.5rem 1.5rem;
+    border-radius: 4px;
+    display: inline-block;
+    margin: 0 auto 1rem auto;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    animation: glowTag 1.5s ease-in-out infinite alternate;
+}
+
+.pretty-content {
+    text-align: center;
+    margin-top: 2rem;
+}
+
+.teaser-title {
+    color: #e6e6fa;
+    font-size: 1.8rem;
+    margin-bottom: 1rem;
+    text-shadow: 0 0 8px rgba(230, 230, 250, 0.5);
+}
+
+@keyframes glowTag {
+    from {
+        box-shadow: 0 0 5px #ff0066,
+                   0 0 10px #ff0066,
+                   0 0 15px #ff0066;
+    }
+    to {
+        box-shadow: 0 0 10px #ff0066,
+                   0 0 20px #ff0066,
+                   0 0 30px #ff0066;
+    }
+}
+
 .new-release {
     max-width: 1200px;
     margin: 0 auto;
