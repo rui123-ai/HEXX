@@ -1654,4 +1654,75 @@ section {
     .comment.permanent .comment-text {
         font-size: 1rem;
     }
+}
+
+.floating-witch {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    z-index: 1000;
+    pointer-events: none;
+}
+
+.witch-container {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    background: rgba(0, 0, 0, 0.7);
+    padding: 15px;
+    border-radius: 10px;
+    max-width: 600px;
+}
+
+.witch-image {
+    width: 150px;
+    height: auto;
+    filter: drop-shadow(0 0 8px rgba(128, 0, 255, 0.6));
+    animation: neonPulse 2s ease-in-out infinite;
+}
+
+.witch-quote {
+    color: #fff;
+    font-family: 'Cinzel', serif;
+    font-size: 0.9em;
+    line-height: 1.6;
+    text-shadow: 0 0 5px rgba(255, 255, 255, 0.5);
+    max-width: 400px;
+}
+
+.quote-author {
+    display: block;
+    color: #ff69b4;
+    margin-top: 10px;
+    font-style: italic;
+    text-shadow: 0 0 5px rgba(255, 105, 180, 0.5);
+}
+
+@keyframes neonPulse {
+    0% {
+        filter: drop-shadow(0 0 8px rgba(128, 0, 255, 0.6));
+    }
+    50% {
+        filter: drop-shadow(0 0 12px rgba(128, 0, 255, 0.8));
+    }
+    100% {
+        filter: drop-shadow(0 0 8px rgba(128, 0, 255, 0.6));
+    }
+}
+
+@media (max-width: 768px) {
+    .witch-container {
+        flex-direction: column;
+        text-align: center;
+        max-width: 300px;
+        margin-right: 10px;
+    }
+
+    .witch-image {
+        width: 120px;
+    }
+
+    .witch-quote {
+        font-size: 0.8em;
+    }
 } 
