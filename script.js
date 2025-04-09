@@ -186,8 +186,17 @@ document.addEventListener('DOMContentLoaded', () => {
                     }
                 });
                 
-                audio.play();
-                playButton.textContent = '⏸';
+                // Tentar reproduzir o áudio
+                const playPromise = audio.play();
+                
+                if (playPromise !== undefined) {
+                    playPromise.then(() => {
+                        playButton.textContent = '⏸';
+                    }).catch(error => {
+                        console.error('Erro ao reproduzir áudio:', error);
+                        playButton.textContent = '⚠';
+                    });
+                }
             } else {
                 audio.pause();
                 playButton.textContent = '▶';
