@@ -53,6 +53,22 @@ body {
 }
 
 .logo {
+    display: flex;
+    align-items: center;
+}
+
+.logo-image {
+    height: 50px;
+    width: auto;
+    filter: drop-shadow(0 0 10px var(--color-neon-green));
+    transition: filter 0.3s ease;
+}
+
+.logo-image:hover {
+    filter: drop-shadow(0 0 15px var(--color-neon-green));
+}
+
+.logo-text {
     font-family: 'Cinzel', serif;
     font-size: 2rem;
     color: var(--color-neon-green);
@@ -89,6 +105,18 @@ body {
 
 .hero-content {
     z-index: 2;
+}
+
+.hero-logo {
+    margin-bottom: 2rem;
+}
+
+.hero-logo-image {
+    max-width: 600px;
+    width: 90%;
+    height: auto;
+    filter: drop-shadow(0 0 20px var(--color-neon-green));
+    animation: glitch 2s infinite;
 }
 
 .glitch-text {
@@ -267,19 +295,24 @@ h2 {
 /* Animations */
 @keyframes glitch {
     0% {
-        text-shadow: 0 0 20px var(--color-neon-green);
+        filter: drop-shadow(0 0 20px var(--color-neon-green));
+        transform: translateX(0);
     }
     25% {
-        text-shadow: -2px 0 var(--color-crimson), 2px 2px var(--color-neon-green);
+        filter: drop-shadow(-2px 0 var(--color-crimson)) drop-shadow(2px 2px var(--color-neon-green));
+        transform: translateX(2px) translateY(2px);
     }
     50% {
-        text-shadow: 2px -2px var(--color-crimson), -2px -2px var(--color-neon-green);
+        filter: drop-shadow(2px -2px var(--color-crimson)) drop-shadow(-2px -2px var(--color-neon-green));
+        transform: translateX(-2px) translateY(-2px);
     }
     75% {
-        text-shadow: 2px 0 var(--color-crimson), -2px -2px var(--color-neon-green);
+        filter: drop-shadow(2px 0 var(--color-crimson)) drop-shadow(-2px -2px var(--color-neon-green));
+        transform: translateX(2px) translateY(-2px);
     }
     100% {
-        text-shadow: 0 0 20px var(--color-neon-green);
+        filter: drop-shadow(0 0 20px var(--color-neon-green));
+        transform: translateX(0);
     }
 }
 
@@ -294,6 +327,14 @@ h2 {
         flex-direction: column;
         text-align: center;
         gap: 1rem;
+    }
+
+    .logo-image {
+        height: 40px;
+    }
+    
+    .hero-logo-image {
+        max-width: 90%;
     }
 
     .glitch-text {
