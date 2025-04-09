@@ -674,4 +674,41 @@ section {
     0% { opacity: 1; }
     50% { opacity: 0; }
     100% { opacity: 1; }
+}
+
+.personality-list,
+.song-list {
+    list-style: none;
+    padding: 0;
+    margin: 1rem 0;
+}
+
+.personality-list li,
+.song-list li {
+    margin: 0.5rem 0;
+    padding-left: 1.5rem;
+    position: relative;
+    color: #e6e6fa;
+    font-family: 'Special Elite', cursive;
+}
+
+.personality-list li:before,
+.song-list li:before {
+    content: 'ღ';
+    position: absolute;
+    left: 0;
+    color: #ff66ff;
+}
+
+.special-item {
+    background: linear-gradient(45deg, rgba(26, 15, 46, 0.9), rgba(45, 27, 78, 0.9));
+    border: 1px solid #6b2cf5;
+    box-shadow: 0 0 15px rgba(107, 44, 245, 0.2);
+}
+
+.curiosity-item h3 {
+    color: #ff66ff;
+    font-family: 'Cinzel', serif;
+    margin-bottom: 1rem;
+    text-shadow: 0 0 5px rgba(255, 102, 255, 0.5);
 } 
