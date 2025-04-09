@@ -392,19 +392,26 @@ section {
     display: flex;
     align-items: center;
     gap: 15px;
-    padding: 10px 0;
+    padding: 8px 0;
+    width: 100%;
 }
 
 .track-number {
     color: var(--color-neon-purple);
     font-weight: bold;
-    min-width: 30px;
+    min-width: 25px;
+    font-size: 0.9rem;
 }
 
 .track-title {
     color: var(--color-light);
-    flex: 1;
+    flex: 0 1 auto;
     margin-right: 15px;
+    font-size: 0.85rem;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 150px;
 }
 
 .custom-audio-player {
@@ -415,8 +422,8 @@ section {
     border: 1px solid var(--color-neon-purple);
     border-radius: 30px;
     padding: 8px 15px;
-    width: 100%;
-    max-width: 400px;
+    width: 280px;
+    min-width: 280px;
 }
 
 .player-controls {
@@ -447,12 +454,14 @@ section {
 
 .progress-bar {
     flex: 1;
-    height: 6px;
+    height: 4px;
     background: rgba(128, 128, 128, 0.3);
-    border-radius: 3px;
+    border-radius: 2px;
     position: relative;
     cursor: pointer;
-    margin: 0 10px;
+    margin: 0 8px;
+    width: 120px;
+    min-width: 120px;
 }
 
 .progress {
@@ -469,7 +478,7 @@ section {
     display: flex;
     align-items: center;
     gap: 8px;
-    min-width: 100px;
+    min-width: 80px;
 }
 
 .volume-icon {
@@ -480,7 +489,7 @@ section {
 
 .volume-slider {
     -webkit-appearance: none;
-    width: 80px;
+    width: 60px;
     height: 4px;
     background: rgba(128, 128, 128, 0.3);
     border-radius: 2px;
@@ -529,16 +538,27 @@ section {
 /* Responsividade */
 @media (max-width: 768px) {
     .custom-audio-player {
-        max-width: 100%;
+        width: 240px;
+        min-width: 240px;
         padding: 6px 12px;
     }
 
+    .track-title {
+        font-size: 0.8rem;
+        max-width: 120px;
+    }
+
+    .progress-bar {
+        width: 100px;
+        min-width: 100px;
+    }
+
     .volume-control {
-        min-width: 80px;
+        min-width: 70px;
     }
 
     .volume-slider {
-        width: 60px;
+        width: 50px;
     }
 }
 
