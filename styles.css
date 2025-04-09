@@ -241,6 +241,30 @@ section {
     color: #ccc;
 }
 
+.member-quote {
+    margin-top: 20px;
+    padding: 15px;
+    border-left: 3px solid #8a2be2;
+    background: rgba(138, 43, 226, 0.1);
+    border-radius: 0 5px 5px 0;
+}
+
+.member-quote p {
+    font-style: italic;
+    color: #e6e6e6;
+    margin: 10px 0;
+    line-height: 1.4;
+    text-shadow: 0 0 5px rgba(138, 43, 226, 0.5);
+}
+
+.member-quote p:first-child {
+    margin-top: 0;
+}
+
+.member-quote p:last-child {
+    margin-bottom: 0;
+}
+
 /* Discography */
 .albums-grid {
     display: grid;
