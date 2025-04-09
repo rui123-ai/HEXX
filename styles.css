@@ -325,12 +325,12 @@ section {
 .album {
     background: rgba(20, 20, 30, 0.9);
     border-radius: 15px;
-    padding: 2rem;
+    padding: 2.5rem;
     margin: 1rem;
     border: 1px solid rgba(107, 44, 245, 0.3);
     flex: 1;
-    min-width: 300px;
-    max-width: 500px;
+    min-width: 400px;
+    max-width: 600px;
 }
 
 .album:hover {
@@ -392,14 +392,14 @@ section {
     display: flex;
     align-items: center;
     gap: 15px;
-    padding: 8px 0;
+    padding: 10px 0;
     width: 100%;
 }
 
 .track-number {
     color: var(--color-neon-purple);
     font-weight: bold;
-    min-width: 25px;
+    min-width: 30px;
     font-size: 0.9rem;
 }
 
@@ -407,11 +407,12 @@ section {
     color: var(--color-light);
     flex: 0 1 auto;
     margin-right: 15px;
-    font-size: 0.85rem;
+    font-size: 0.9rem;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
-    max-width: 150px;
+    min-width: 180px;
+    max-width: none;
 }
 
 .custom-audio-player {
@@ -422,8 +423,8 @@ section {
     border: 1px solid var(--color-neon-purple);
     border-radius: 30px;
     padding: 8px 15px;
-    width: 280px;
-    min-width: 280px;
+    width: 320px;
+    min-width: 320px;
 }
 
 .player-controls {
@@ -460,8 +461,8 @@ section {
     position: relative;
     cursor: pointer;
     margin: 0 8px;
-    width: 120px;
-    min-width: 120px;
+    width: 160px;
+    min-width: 160px;
 }
 
 .progress {
@@ -478,7 +479,7 @@ section {
     display: flex;
     align-items: center;
     gap: 8px;
-    min-width: 80px;
+    min-width: 90px;
 }
 
 .volume-icon {
@@ -489,7 +490,7 @@ section {
 
 .volume-slider {
     -webkit-appearance: none;
-    width: 60px;
+    width: 70px;
     height: 4px;
     background: rgba(128, 128, 128, 0.3);
     border-radius: 2px;
@@ -536,41 +537,43 @@ section {
 }
 
 /* Responsividade */
+@media (max-width: 1200px) {
+    .albums-grid {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+        padding: 1rem;
+    }
+
+    .album {
+        max-width: none;
+        min-width: 0;
+        width: 100%;
+    }
+}
+
 @media (max-width: 768px) {
     .custom-audio-player {
-        width: 240px;
-        min-width: 240px;
+        width: 280px;
+        min-width: 280px;
         padding: 6px 12px;
     }
 
     .track-title {
-        font-size: 0.8rem;
-        max-width: 120px;
+        font-size: 0.85rem;
+        min-width: 140px;
     }
 
     .progress-bar {
-        width: 100px;
-        min-width: 100px;
+        width: 120px;
+        min-width: 120px;
     }
 
     .volume-control {
-        min-width: 70px;
+        min-width: 80px;
     }
 
     .volume-slider {
-        width: 50px;
-    }
-}
-
-@media (max-width: 480px) {
-    .track {
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 8px;
-    }
-
-    .custom-audio-player {
-        margin-top: 10px;
+        width: 60px;
     }
 }
 
