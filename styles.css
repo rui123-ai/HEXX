@@ -289,6 +289,18 @@ section {
     color: var(--color-neon-purple);
 }
 
+.album-subtitle {
+    font-family: 'Special Elite', cursive;
+    font-size: 0.9rem;
+    color: #b026ff;
+    margin: -0.3rem 0 0.8rem 0;
+    font-style: italic;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    opacity: 0.9;
+    text-shadow: 0 0 5px rgba(176, 38, 255, 0.3);
+}
+
 /* Gallery */
 .gallery-grid {
     display: grid;
