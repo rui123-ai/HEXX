@@ -1756,4 +1756,23 @@ section {
         border-top: 10px solid rgba(0, 0, 0, 0.85);
         border-bottom: none;
     }
+}
+
+.comment.permanent.collapsed {
+    display: none;
+}
+
+.comment.permanent.fade-in {
+    animation: fadeInComment 0.5s ease-in;
+}
+
+@keyframes fadeInComment {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 } 

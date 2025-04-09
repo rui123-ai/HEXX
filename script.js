@@ -303,16 +303,33 @@ document.addEventListener('DOMContentLoaded', function() {
         const commentElement = createCommentElement(comment);
         commentsList.insertBefore(commentElement, showMoreBtn);
     });
+
+    // Show More Comments functionality
+    const showMoreOfficialBtn = document.getElementById('showMoreOfficialComments');
+    const collapsedComments = document.querySelectorAll('.comment.permanent.collapsed');
+
+    if (showMoreOfficialBtn && collapsedComments.length > 0) {
+        showMoreOfficialBtn.addEventListener('click', function() {
+            collapsedComments.forEach(comment => {
+                comment.classList.remove('collapsed');
+                comment.style.display = 'block';
+                comment.classList.add('fade-in');
+            });
+            showMoreOfficialBtn.style.display = 'none';
+        });
+    }
 });
 
-// Função para mostrar mais comentários oficiais
-document.getElementById('showMoreOfficialComments').addEventListener('click', function() {
-    const collapsedComments = document.querySelectorAll('.official-comments .comment.collapsed');
-    collapsedComments.forEach(comment => {
-        comment.classList.remove('collapsed');
-    });
-    this.style.display = 'none';
-});
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
 
 // Gallery Popup Functionality
 document.addEventListener('DOMContentLoaded', function() {
