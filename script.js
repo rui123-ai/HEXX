@@ -312,4 +312,48 @@ document.getElementById('showMoreOfficialComments').addEventListener('click', fu
         comment.classList.remove('collapsed');
     });
     this.style.display = 'none';
+});
+
+// Gallery Popup Functionality
+document.addEventListener('DOMContentLoaded', function() {
+    const popup = document.querySelector('.gallery-popup');
+    const popupImage = popup.querySelector('.popup-image');
+    const popupCaption = popup.querySelector('.popup-caption');
+    const closeButton = popup.querySelector('.close-popup');
+
+    // Abrir popup ao clicar em uma imagem da galeria
+    document.querySelectorAll('.gallery-item').forEach(item => {
+        item.addEventListener('click', function() {
+            const img = this.querySelector('img');
+            const caption = this.querySelector('.gallery-caption').textContent;
+            
+            popupImage.src = img.src;
+            popupImage.alt = img.alt;
+            popupCaption.textContent = caption;
+            popup.classList.add('popup-visible');
+            document.body.style.overflow = 'hidden'; // Previne rolagem
+        });
+    });
+
+    // Fechar popup ao clicar no botão de fechar
+    closeButton.addEventListener('click', function() {
+        popup.classList.remove('popup-visible');
+        document.body.style.overflow = ''; // Restaura rolagem
+    });
+
+    // Fechar popup ao clicar fora da imagem
+    popup.addEventListener('click', function(e) {
+        if (e.target === popup) {
+            popup.classList.remove('popup-visible');
+            document.body.style.overflow = ''; // Restaura rolagem
+        }
+    });
+
+    // Fechar popup com tecla ESC
+    document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape' && popup.classList.contains('popup-visible')) {
+            popup.classList.remove('popup-visible');
+            document.body.style.overflow = ''; // Restaura rolagem
+        }
+    });
 }); 
