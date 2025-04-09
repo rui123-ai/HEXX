@@ -293,4 +293,13 @@ document.addEventListener('DOMContentLoaded', function() {
         const commentElement = createCommentElement(comment);
         commentsList.insertBefore(commentElement, showMoreBtn);
     });
+});
+
+// Função para mostrar mais comentários oficiais
+document.getElementById('showMoreOfficialComments').addEventListener('click', function() {
+    const collapsedComments = document.querySelectorAll('.official-comments .comment.collapsed');
+    collapsedComments.forEach(comment => {
+        comment.classList.remove('collapsed');
+    });
+    this.style.display = 'none';
 }); 
