@@ -161,110 +161,82 @@ document.addEventListener('DOMContentLoaded', function() {
 
 // Gerenciamento de comentários
 document.addEventListener('DOMContentLoaded', () => {
-    // Configuração dos players de áudio
-    const audioPlayers = document.querySelectorAll('.custom-audio-player');
-    
-    audioPlayers.forEach(player => {
-        const audio = player.querySelector('audio');
-        const playButton = player.querySelector('.play-button');
-        const progressBar = player.querySelector('.progress');
-        const volumeSlider = player.querySelector('.volume-slider');
-        
-        if (!audio || !playButton || !progressBar || !volumeSlider) {
-            console.error('Elementos do player não encontrados');
+    // Inicializar todos os players de áudio
+    var audioPlayers = document.querySelectorAll('.custom-audio-player');
+    var currentlyPlaying = null;
+
+    function updateVolumeIcon(volumeIcon, volume) {
+        if (volume === 0) {
+            volumeIcon.textContent = '🔇';
+        } else if (volume < 0.5) {
+            volumeIcon.textContent = '🔉';
+        } else {
+            volumeIcon.textContent = '🔊';
+        }
+    }
+
+    function setupAudioPlayer(player) {
+        var audio = player.querySelector('audio');
+        var playButton = player.querySelector('.play-button');
+        var progressBar = player.querySelector('.progress');
+        var volumeSlider = player.querySelector('.volume-slider');
+        var volumeIcon = player.querySelector('.volume-icon');
+
+        if (!audio || !playButton || !progressBar || !volumeSlider || !volumeIcon) {
             return;
         }
 
-        // Log para debug
-        console.log('Audio source:', audio.src);
-        console.log('Audio element:', audio);
-
-        // Configurar volume inicial
         audio.volume = 0.2;
         volumeSlider.value = 20;
+        updateVolumeIcon(volumeIcon, 0.2);
 
-        // Play/Pause simplificado
-        playButton.addEventListener('click', () => {
-            console.log('Botão clicado');
+        playButton.addEventListener('click', function() {
             if (audio.paused) {
-                console.log('Tentando reproduzir áudio');
-                audio.play()
-                    .then(() => {
-                        console.log('Áudio reproduzindo com sucesso');
-                        playButton.textContent = '⏸';
-                    })
-                    .catch(error => {
-                        console.error('Erro ao reproduzir:', error);
-                        playButton.textContent = '⚠';
-                    });
+                if (currentlyPlaying && currentlyPlaying !== audio) {
+                    currentlyPlaying.pause();
+                    var prevButton = currentlyPlaying.parentElement.querySelector('.play-button');
+                    if (prevButton) {
+                        prevButton.textContent = '▶';
+                    }
+                }
+                audio.play().catch(function(error) {
+                    console.error('Erro ao tocar áudio:', error);
+                });
+                playButton.textContent = '⏸';
+                currentlyPlaying = audio;
             } else {
-                console.log('Pausando áudio');
                 audio.pause();
                 playButton.textContent = '▶';
+                currentlyPlaying = null;
             }
         });
 
-        // Atualizar barra de progresso
-        audio.addEventListener('timeupdate', () => {
-            if (!isNaN(audio.duration)) {
-                const progress = (audio.currentTime / audio.duration) * 100;
-                progressBar.style.width = `${progress}%`;
-            }
+        audio.addEventListener('timeupdate', function() {
+            var progress = (audio.currentTime / audio.duration) * 100;
+            progressBar.style.width = progress + '%';
         });
 
-        // Clique na barra de progresso
-        player.querySelector('.progress-bar').addEventListener('click', (e) => {
-            if (!isNaN(audio.duration)) {
-                const rect = e.target.getBoundingClientRect();
-                const pos = (e.clientX - rect.left) / rect.width;
-                audio.currentTime = pos * audio.duration;
-            }
+        volumeSlider.addEventListener('input', function() {
+            var newVolume = volumeSlider.value / 100;
+            audio.volume = newVolume;
+            updateVolumeIcon(volumeIcon, newVolume);
         });
 
-        // Controle de volume
-        volumeSlider.addEventListener('input', (e) => {
-            const volume = e.target.value / 100;
-            audio.volume = volume;
-        });
-
-        // Atualizar ícone de volume
-        volumeSlider.addEventListener('input', (e) => {
-            const volumeIcon = player.querySelector('.volume-icon');
-            const volume = e.target.value;
-            if (volume == 0) {
-                volumeIcon.textContent = '🔇';
-            } else if (volume < 50) {
-                volumeIcon.textContent = '🔉';
-            } else {
-                volumeIcon.textContent = '🔊';
-            }
-        });
-
-        // Tratamento de erros
-        audio.addEventListener('error', (e) => {
-            console.error('Erro no player de áudio:', e);
-            console.error('Código do erro:', audio.error ? audio.error.code : 'desconhecido');
-            playButton.disabled = true;
-            playButton.textContent = '❌';
-        });
-
-        // Reset quando o áudio termina
-        audio.addEventListener('ended', () => {
+        audio.addEventListener('ended', function() {
             playButton.textContent = '▶';
-            progressBar.style.width = '0%';
+            currentlyPlaying = null;
         });
 
-        // Carregar metadados do áudio
-        audio.addEventListener('loadedmetadata', () => {
-            console.log('Metadados carregados para:', audio.src);
-            playButton.disabled = false;
+        audio.addEventListener('error', function(e) {
+            console.error('Erro no áudio:', e);
+            playButton.textContent = '⚠';
+            playButton.disabled = true;
         });
+    }
 
-        // Log quando o áudio estiver pronto para reprodução
-        audio.addEventListener('canplay', () => {
-            console.log('Áudio pronto para reprodução:', audio.src);
-        });
-    });
+    for (var i = 0; i < audioPlayers.length; i++) {
+        setupAudioPlayer(audioPlayers[i]);
+    }
 
     // Comments functionality
     const commentsList = document.querySelector('.comments-list');
