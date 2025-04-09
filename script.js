@@ -214,6 +214,16 @@ document.querySelectorAll('.custom-audio-player').forEach(player => {
     });
 });
 
+// Configurar volume padrão mais baixo para todos os players
+document.querySelectorAll('.volume-slider').forEach(slider => {
+    slider.value = 20; // Define o volume para 20%
+    const audio = slider.closest('.custom-audio-player').previousElementSibling.dataset.src;
+    if (audio) {
+        const audioElement = new Audio(audio);
+        audioElement.volume = 0.2; // Define o volume para 20%
+    }
+});
+
 // Gerenciamento de comentários
 document.addEventListener('DOMContentLoaded', function() {
     const commentForm = document.getElementById('commentForm');
