@@ -176,39 +176,47 @@ document.addEventListener('DOMContentLoaded', () => {
         audio.volume = 0.2;
         volumeSlider.value = 20;
 
-        // Play/Pause
-        playButton.addEventListener('click', () => {
-            if (audio.paused) {
-                // Pausar todos os outros players
-                audioPlayers.forEach(otherPlayer => {
-                    const otherAudio = otherPlayer.querySelector('audio');
-                    if (otherAudio && otherAudio !== audio) {
-                        otherAudio.pause();
-                        otherPlayer.querySelector('.play-button').textContent = '▶';
-                    }
-                });
-                
-                audio.play().catch(error => {
-                    console.error('Erro ao reproduzir áudio:', error);
-                });
-                playButton.textContent = '⏸';
-            } else {
-                audio.pause();
-                playButton.textContent = '▶';
+        // Play/Pause com verificação de estado
+        playButton.addEventListener('click', async () => {
+            try {
+                if (audio.paused) {
+                    // Pausar todos os outros players
+                    audioPlayers.forEach(otherPlayer => {
+                        const otherAudio = otherPlayer.querySelector('audio');
+                        if (otherAudio && otherAudio !== audio) {
+                            otherAudio.pause();
+                            otherPlayer.querySelector('.play-button').textContent = '▶';
+                        }
+                    });
+                    
+                    // Tentar reproduzir o áudio
+                    await audio.play();
+                    playButton.textContent = '⏸';
+                } else {
+                    audio.pause();
+                    playButton.textContent = '▶';
+                }
+            } catch (error) {
+                console.error('Erro ao reproduzir áudio:', error);
+                playButton.textContent = '⚠';
             }
         });
 
         // Atualizar barra de progresso
         audio.addEventListener('timeupdate', () => {
-            const progress = (audio.currentTime / audio.duration) * 100;
-            progressBar.style.width = `${progress}%`;
+            if (!isNaN(audio.duration)) {
+                const progress = (audio.currentTime / audio.duration) * 100;
+                progressBar.style.width = `${progress}%`;
+            }
         });
 
         // Clique na barra de progresso
         player.querySelector('.progress-bar').addEventListener('click', (e) => {
-            const rect = e.target.getBoundingClientRect();
-            const pos = (e.clientX - rect.left) / rect.width;
-            audio.currentTime = pos * audio.duration;
+            if (!isNaN(audio.duration)) {
+                const rect = e.target.getBoundingClientRect();
+                const pos = (e.clientX - rect.left) / rect.width;
+                audio.currentTime = pos * audio.duration;
+            }
         });
 
         // Controle de volume
@@ -235,6 +243,12 @@ document.addEventListener('DOMContentLoaded', () => {
             console.error('Erro no player de áudio:', e);
             playButton.disabled = true;
             playButton.textContent = '❌';
+        });
+
+        // Reset quando o áudio termina
+        audio.addEventListener('ended', () => {
+            playButton.textContent = '▶';
+            progressBar.style.width = '0%';
         });
     });
 
