@@ -188,16 +188,14 @@ document.addEventListener('DOMContentLoaded', () => {
                 });
                 
                 // Tentar reproduzir o áudio
-                const playPromise = audio.play();
-                
-                if (playPromise !== undefined) {
-                    playPromise.then(() => {
+                audio.play()
+                    .then(() => {
                         playButton.textContent = '⏸';
-                    }).catch(error => {
+                    })
+                    .catch(error => {
                         console.error('Erro ao reproduzir áudio:', error);
                         playButton.textContent = '⚠';
                     });
-                }
             } else {
                 audio.pause();
                 playButton.textContent = '▶';
