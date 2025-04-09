@@ -846,6 +846,25 @@ section {
     background: rgba(26, 15, 46, 0.8);
 }
 
+.release-info {
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+.release-info h3 {
+    color: #ff00ff;
+    font-size: 2rem;
+    margin-bottom: 1rem;
+    text-shadow: 0 0 10px rgba(255, 0, 255, 0.5);
+}
+
+.release-description {
+    color: #e6e6fa;
+    font-size: 1.1rem;
+    line-height: 1.6;
+    margin-bottom: 1.5rem;
+}
+
 .video-teaser {
     width: 100%;
     height: 315px;
@@ -877,31 +896,42 @@ section {
     pointer-events: none;
 }
 
-.coming-soon {
-    display: inline-block;
+.track-preview {
+    margin-top: 2rem;
+    padding-top: 2rem;
+    border-top: 1px solid rgba(107, 44, 245, 0.3);
+}
+
+.track-preview h4 {
     color: #ff00ff;
-    font-weight: bold;
-    margin-left: 1rem;
-    padding: 0.3rem 1rem;
+    font-size: 1.5rem;
+    margin-bottom: 1.5rem;
+    text-align: center;
+    text-shadow: 0 0 10px rgba(255, 0, 255, 0.3);
+}
+
+.preview-tracks {
+    list-style: none;
+    padding: 0;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 1rem;
+}
+
+.preview-tracks li {
+    color: #e6e6fa;
+    font-size: 1rem;
+    padding: 0.8rem 1rem;
+    background: rgba(0, 0, 0, 0.3);
     border-radius: 4px;
-    background: rgba(0, 0, 0, 0.7);
-    animation: glowText 1.5s ease-in-out infinite alternate;
-    text-shadow: 0 0 5px #ff00ff, 0 0 10px #ff00ff, 0 0 15px #ff00ff;
+    border: 1px solid rgba(107, 44, 245, 0.2);
+    transition: all 0.3s ease;
 }
 
-@keyframes pulseOverlay {
-    0% { opacity: 0.3; }
-    50% { opacity: 0.6; }
-    100% { opacity: 0.3; }
-}
-
-@keyframes glowText {
-    from {
-        text-shadow: 0 0 5px #ff00ff, 0 0 10px #ff00ff, 0 0 15px #ff00ff;
-    }
-    to {
-        text-shadow: 0 0 10px #ff00ff, 0 0 20px #ff00ff, 0 0 30px #ff00ff;
-    }
+.preview-tracks li:hover {
+    background: rgba(107, 44, 245, 0.1);
+    border-color: rgba(107, 44, 245, 0.4);
+    transform: translateX(5px);
 }
 
 .launch-status {
@@ -921,21 +951,10 @@ section {
     animation: launchPulse 1.5s infinite, textGlow 2s infinite;
 }
 
-.launch-status::before,
-.launch-status::after {
-    content: '';
-    position: absolute;
-    top: -2px;
-    left: -2px;
-    right: -2px;
-    bottom: -2px;
-    border: 2px solid #ff0066;
-    border-radius: 4px;
-    animation: borderPulse 1.5s infinite;
-}
-
-.launch-status::after {
-    animation-delay: 0.5s;
+@keyframes pulseOverlay {
+    0% { opacity: 0.3; }
+    50% { opacity: 0.6; }
+    100% { opacity: 0.3; }
 }
 
 @keyframes launchPulse {
@@ -948,10 +967,4 @@ section {
     0% { text-shadow: 0 0 10px #ff0066, 0 0 20px #ff0066; }
     50% { text-shadow: 0 0 20px #ff0066, 0 0 30px #ff0066, 0 0 40px #ff0066; }
     100% { text-shadow: 0 0 10px #ff0066, 0 0 20px #ff0066; }
-}
-
-@keyframes borderPulse {
-    0% { opacity: 1; }
-    50% { opacity: 0; }
-    100% { opacity: 1; }
 } 
