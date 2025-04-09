@@ -281,8 +281,28 @@ section {
 }
 
 .tracks-list li {
-    padding: 0.3rem 0;
+    padding: 0.5rem 0;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
     transition: color 0.3s ease;
+}
+
+.tracks-list audio {
+    height: 30px;
+    border-radius: 15px;
+    background: rgba(0, 0, 0, 0.5);
+    filter: hue-rotate(240deg);
+}
+
+.tracks-list audio::-webkit-media-controls-panel {
+    background: rgba(107, 44, 245, 0.2);
+}
+
+.tracks-list audio::-webkit-media-controls-play-button,
+.tracks-list audio::-webkit-media-controls-volume-slider {
+    filter: invert(1);
 }
 
 .tracks-list li:hover {
