@@ -170,13 +170,9 @@ document.addEventListener('DOMContentLoaded', () => {
         const volumeSlider = player.querySelector('.volume-slider');
         const audioSrc = player.getAttribute('data-audio');
         
-        // Create audio element if it doesn't exist
-        let audio = player.querySelector('audio');
-        if (!audio) {
-            audio = document.createElement('audio');
-            audio.innerHTML = `<source src="${audioSrc}" type="audio/mpeg">`;
-            player.appendChild(audio);
-        }
+        // Create audio element
+        const audio = new Audio(audioSrc);
+        audio.preload = 'metadata';
         
         // Set initial volume
         audio.volume = 0.2;
@@ -186,11 +182,13 @@ document.addEventListener('DOMContentLoaded', () => {
         playButton.addEventListener('click', () => {
             // Pause all other players
             audioPlayers.forEach(otherPlayer => {
-                const otherAudio = otherPlayer.querySelector('audio');
-                const otherButton = otherPlayer.querySelector('.play-button');
-                if (otherAudio && otherAudio !== audio && !otherAudio.paused) {
-                    otherAudio.pause();
-                    otherButton.textContent = '▶';
+                if (otherPlayer !== player) {
+                    const otherAudio = otherPlayer.querySelector('audio') || otherPlayer._audio;
+                    const otherButton = otherPlayer.querySelector('.play-button');
+                    if (otherAudio && !otherAudio.paused) {
+                        otherAudio.pause();
+                        otherButton.textContent = '▶';
+                    }
                 }
             });
             
@@ -202,6 +200,7 @@ document.addEventListener('DOMContentLoaded', () => {
                         playButton.textContent = '⏸';
                     }).catch(error => {
                         console.error('Error playing audio:', error);
+                        playButton.textContent = '▶';
                     });
                 }
             } else {
@@ -232,13 +231,7 @@ document.addEventListener('DOMContentLoaded', () => {
             audio.volume = volume;
         });
         
-        // Error handling
-        audio.addEventListener('error', (e) => {
-            console.error('Error loading audio:', e);
-            console.log('Failed to load:', audioSrc);
-        });
-        
-        // Add loading indicator
+        // Loading states
         audio.addEventListener('loadstart', () => {
             playButton.textContent = '⌛';
         });
@@ -250,6 +243,16 @@ document.addEventListener('DOMContentLoaded', () => {
                 playButton.textContent = '⏸';
             }
         });
+        
+        // Error handling
+        audio.addEventListener('error', (e) => {
+            console.error('Error loading audio:', e);
+            console.log('Failed to load:', audioSrc);
+            playButton.textContent = '⚠';
+        });
+        
+        // Store audio element reference
+        player._audio = audio;
     });
 
     // Comments functionality
