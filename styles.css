@@ -24,15 +24,15 @@ body::before {
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
-    filter: blur(8px) brightness(0.4);
-    opacity: 0.25;
+    filter: blur(6px) brightness(0.5);
+    opacity: 0.35;
     z-index: -1;
     pointer-events: none;
 }
 
 body {
     position: relative;
-    background-color: rgba(0, 0, 0, 0.92);
+    background-color: rgba(0, 0, 0, 0.88);
     color: #fff;
     font-family: 'Cinzel', serif;
     margin: 0;
