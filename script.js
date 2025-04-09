@@ -227,20 +227,20 @@ document.querySelectorAll('.volume-slider').forEach(slider => {
 // Gerenciamento de comentários
 document.addEventListener('DOMContentLoaded', function() {
     const commentForm = document.getElementById('commentForm');
-    const commentsList = document.querySelector('.comments-list');
-    const showMoreBtn = document.getElementById('showMoreComments');
+    const userCommentsList = document.querySelector('.user-comments .comments-list');
+    const showMoreBtn = document.getElementById('showMoreOfficialComments');
+    const hiddenComments = document.querySelector('.hidden-comments');
 
     // Carregar comentários do localStorage
     let comments = JSON.parse(localStorage.getItem('comments')) || [];
 
-    // Mostrar/esconder comentários
-    showMoreBtn.addEventListener('click', function() {
-        const collapsedComments = document.querySelectorAll('.comment.collapsed');
-        collapsedComments.forEach(comment => {
-            comment.classList.remove('collapsed');
+    // Mostrar mais comentários oficiais
+    if (showMoreBtn && hiddenComments) {
+        showMoreBtn.addEventListener('click', function() {
+            hiddenComments.classList.add('visible');
+            showMoreBtn.style.display = 'none';
         });
-        showMoreBtn.style.display = 'none';
-    });
+    }
 
     // Adicionar novo comentário
     commentForm.addEventListener('submit', function(e) {
@@ -263,14 +263,14 @@ document.addEventListener('DOMContentLoaded', function() {
         
         // Criar e adicionar o novo comentário ao DOM
         const commentElement = createCommentElement(newComment);
-        commentsList.insertBefore(commentElement, commentsList.firstChild);
+        userCommentsList.insertBefore(commentElement, userCommentsList.firstChild);
         
         // Limpar o formulário
         commentForm.reset();
     });
 
     // Excluir comentário
-    commentsList.addEventListener('click', function(e) {
+    userCommentsList.addEventListener('click', function(e) {
         if (e.target.classList.contains('delete-comment')) {
             const commentId = parseInt(e.target.dataset.id);
             const commentElement = e.target.closest('.comment');
@@ -298,26 +298,11 @@ document.addEventListener('DOMContentLoaded', function() {
         return div;
     }
 
-    // Carregar comentários existentes
+    // Carregar comentários existentes dos usuários
     comments.forEach(comment => {
         const commentElement = createCommentElement(comment);
-        commentsList.insertBefore(commentElement, showMoreBtn);
+        userCommentsList.appendChild(commentElement);
     });
-
-    // Show More Comments functionality
-    const showMoreOfficialBtn = document.getElementById('showMoreOfficialComments');
-    const collapsedComments = document.querySelectorAll('.comment.permanent.collapsed');
-
-    if (showMoreOfficialBtn && collapsedComments.length > 0) {
-        showMoreOfficialBtn.addEventListener('click', function() {
-            collapsedComments.forEach(comment => {
-                comment.classList.remove('collapsed');
-                comment.style.display = 'block';
-                comment.classList.add('fade-in');
-            });
-            showMoreOfficialBtn.style.display = 'none';
-        });
-    }
 });
 
 @keyframes fadeIn {
