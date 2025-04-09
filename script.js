@@ -168,12 +168,19 @@ document.addEventListener('DOMContentLoaded', () => {
         const playButton = player.querySelector('.play-button');
         const progressBar = player.querySelector('.progress');
         const volumeSlider = player.querySelector('.volume-slider');
-        const audio = player.querySelector('audio');
+        const audioSrc = player.getAttribute('data-audio');
         
-        if (!audio) return; // Skip if no audio element found
+        // Create audio element if it doesn't exist
+        let audio = player.querySelector('audio');
+        if (!audio) {
+            audio = document.createElement('audio');
+            audio.innerHTML = `<source src="${audioSrc}" type="audio/mpeg">`;
+            player.appendChild(audio);
+        }
         
         // Set initial volume
         audio.volume = 0.2;
+        volumeSlider.value = 20;
         
         // Play/Pause functionality
         playButton.addEventListener('click', () => {
@@ -189,8 +196,14 @@ document.addEventListener('DOMContentLoaded', () => {
             
             // Play/Pause this player
             if (audio.paused) {
-                audio.play();
-                playButton.textContent = '⏸';
+                const playPromise = audio.play();
+                if (playPromise !== undefined) {
+                    playPromise.then(() => {
+                        playButton.textContent = '⏸';
+                    }).catch(error => {
+                        console.error('Error playing audio:', error);
+                    });
+                }
             } else {
                 audio.pause();
                 playButton.textContent = '▶';
@@ -199,8 +212,18 @@ document.addEventListener('DOMContentLoaded', () => {
         
         // Update progress bar
         audio.addEventListener('timeupdate', () => {
-            const progress = (audio.currentTime / audio.duration) * 100;
-            progressBar.style.width = `${progress}%`;
+            if (!isNaN(audio.duration)) {
+                const progress = (audio.currentTime / audio.duration) * 100;
+                progressBar.style.width = `${progress}%`;
+            }
+        });
+        
+        // Progress bar click functionality
+        const progressContainer = player.querySelector('.progress-bar');
+        progressContainer.addEventListener('click', (e) => {
+            const rect = progressContainer.getBoundingClientRect();
+            const clickPosition = (e.clientX - rect.left) / rect.width;
+            audio.currentTime = clickPosition * audio.duration;
         });
         
         // Volume control
@@ -212,7 +235,20 @@ document.addEventListener('DOMContentLoaded', () => {
         // Error handling
         audio.addEventListener('error', (e) => {
             console.error('Error loading audio:', e);
-            console.log('Failed to load:', audio.querySelector('source')?.src || 'Unknown track');
+            console.log('Failed to load:', audioSrc);
+        });
+        
+        // Add loading indicator
+        audio.addEventListener('loadstart', () => {
+            playButton.textContent = '⌛';
+        });
+        
+        audio.addEventListener('canplay', () => {
+            if (audio.paused) {
+                playButton.textContent = '▶';
+            } else {
+                playButton.textContent = '⏸';
+            }
         });
     });
 
