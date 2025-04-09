@@ -1575,84 +1575,37 @@ section {
 }
 
 .show-more-btn {
-    background: transparent;
-    color: var(--color-neon-purple);
-    border: 2px solid var(--color-neon-purple);
-    padding: 1rem 2rem;
-    border-radius: 5px;
-    cursor: pointer;
-    margin: 2rem auto;
-    display: block;
-    font-family: 'Cinzel', serif;
-    transition: all 0.3s ease;
-}
-
-.show-more-btn:hover {
-    background: var(--color-neon-purple);
-    color: #fff;
-    transform: translateY(-2px);
-    box-shadow: 0 5px 15px rgba(176, 38, 255, 0.3);
-}
-
-.comment.collapsed {
     display: none;
 }
 
-@media (max-width: 768px) {
-    .comments-container {
-        padding: 1rem;
-    }
-
-    .comment {
-        padding: 1rem;
-    }
-
-    .comment-header {
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 0.5rem;
-    }
-}
-
-.official-comments {
-    margin-bottom: 3rem;
-    border-bottom: 2px solid var(--color-neon-purple);
-    padding-bottom: 2rem;
+.comment.permanent.collapsed {
+    display: block !important;
 }
 
 .comment.permanent {
-    background: rgba(30, 20, 40, 0.95);
-    border: 1px solid var(--color-neon-purple);
-    box-shadow: 0 0 15px rgba(176, 38, 255, 0.15);
+    opacity: 1;
+    transform: translateY(0);
 }
 
-.comment.permanent:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 5px 20px rgba(176, 38, 255, 0.25);
+.hidden-comments {
+    display: block;
+    animation: fadeInComment 0.5s ease-out forwards;
 }
 
-.comment.permanent .comment-header h4 {
-    color: #ff66ff;
-    font-weight: bold;
+.comment {
+    opacity: 1;
+    transform: translateY(0);
+    display: block !important;
 }
 
-.comment.permanent .comment-text {
-    color: #fff;
-    font-size: 1.1rem;
-}
-
-.comment.permanent .comment-date {
-    color: #b388ff;
-}
-
-@media (max-width: 768px) {
-    .official-comments {
-        margin-bottom: 2rem;
-        padding-bottom: 1.5rem;
+@keyframes fadeInComment {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
     }
-
-    .comment.permanent .comment-text {
-        font-size: 1rem;
+    to {
+        opacity: 1;
+        transform: translateY(0);
     }
 }
 
@@ -1759,35 +1712,7 @@ section {
 }
 
 .comment.permanent.collapsed {
-    display: none;
-}
-
-.comment.permanent.fade-in {
-    animation: fadeInComment 0.5s ease-out forwards;
-}
-
-@keyframes fadeInComment {
-    from {
-        opacity: 0;
-        transform: translateY(20px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
-
-.hidden-comments {
-    display: none;
-}
-
-.hidden-comments.visible {
-    display: block;
-    animation: fadeInComment 0.5s ease-out forwards;
-}
-
-.comment.permanent.collapsed {
-    display: none;
+    display: block !important;
 }
 
 .comment.permanent.fade-in {

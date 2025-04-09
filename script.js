@@ -178,6 +178,40 @@ document.addEventListener('DOMContentLoaded', () => {
             });
         }
         
+        // Add play/pause functionality
+        const playButton = player.parentElement.querySelector('.play-button');
+        if (playButton) {
+            playButton.addEventListener('click', () => {
+                if (player.paused) {
+                    // Pause all other players first
+                    audioPlayers.forEach(p => {
+                        if (p !== player && !p.paused) {
+                            p.pause();
+                            const otherButton = p.parentElement.querySelector('.play-button');
+                            if (otherButton) {
+                                otherButton.textContent = '▶';
+                            }
+                        }
+                    });
+                    // Play this player
+                    player.play();
+                    playButton.textContent = '⏸';
+                } else {
+                    player.pause();
+                    playButton.textContent = '▶';
+                }
+            });
+        }
+        
+        // Update progress bar
+        const progressBar = player.parentElement.querySelector('.progress');
+        if (progressBar) {
+            player.addEventListener('timeupdate', () => {
+                const progress = (player.currentTime / player.duration) * 100;
+                progressBar.style.width = progress + '%';
+            });
+        }
+        
         // Error handling for audio
         player.addEventListener('error', (e) => {
             console.error('Error loading audio:', e);
@@ -188,8 +222,16 @@ document.addEventListener('DOMContentLoaded', () => {
     
     // Comments functionality
     const commentsList = document.querySelector('.comments-list');
-    const loadMoreBtn = document.querySelector('.load-more-btn');
     const hiddenComments = document.querySelector('.hidden-comments');
+    
+    // Show all comments by default
+    if (hiddenComments) {
+        hiddenComments.classList.add('visible');
+        const comments = hiddenComments.querySelectorAll('.comment');
+        comments.forEach((comment, index) => {
+            comment.classList.add('fade-in');
+        });
+    }
     
     // Create comment element function
     const createCommentElement = (comment) => {
@@ -216,22 +258,6 @@ document.addEventListener('DOMContentLoaded', () => {
             });
         }
     };
-    
-    // Handle "Ler mais" button
-    if (loadMoreBtn && hiddenComments) {
-        loadMoreBtn.addEventListener('click', () => {
-            hiddenComments.classList.add('visible');
-            loadMoreBtn.style.display = 'none';
-            
-            // Animate hidden comments
-            const comments = hiddenComments.querySelectorAll('.comment');
-            comments.forEach((comment, index) => {
-                setTimeout(() => {
-                    comment.classList.add('fade-in');
-                }, index * 100);
-            });
-        });
-    }
     
     // Initialize comments
     loadComments();
