@@ -157,4 +157,59 @@ document.addEventListener('DOMContentLoaded', function() {
     if (video) {
         video.volume = 0.3; // Set volume to 30%
     }
+});
+
+// Audio Player Functionality
+document.querySelectorAll('.custom-audio-player').forEach(player => {
+    const audio = new Audio(player.dataset.audio);
+    const playButton = player.querySelector('.play-button');
+    const progressBar = player.querySelector('.progress-bar');
+    const progress = player.querySelector('.progress');
+    const volumeControl = player.querySelector('.volume-control');
+    
+    let isPlaying = false;
+
+    playButton.addEventListener('click', () => {
+        if (isPlaying) {
+            audio.pause();
+            playButton.textContent = '▶';
+        } else {
+            // Pause all other playing audio
+            document.querySelectorAll('.custom-audio-player').forEach(otherPlayer => {
+                if (otherPlayer !== player) {
+                    const otherButton = otherPlayer.querySelector('.play-button');
+                    if (otherButton.textContent === '⏸') {
+                        otherButton.click();
+                    }
+                }
+            });
+            
+            audio.play();
+            playButton.textContent = '⏸';
+        }
+        isPlaying = !isPlaying;
+    });
+
+    audio.addEventListener('timeupdate', () => {
+        const percentage = (audio.currentTime / audio.duration) * 100;
+        progress.style.width = percentage + '%';
+    });
+
+    audio.addEventListener('ended', () => {
+        playButton.textContent = '▶';
+        isPlaying = false;
+        progress.style.width = '0%';
+    });
+
+    progressBar.addEventListener('click', (e) => {
+        const rect = progressBar.getBoundingClientRect();
+        const percentage = (e.clientX - rect.left) / rect.width;
+        audio.currentTime = percentage * audio.duration;
+    });
+
+    volumeControl.addEventListener('click', (e) => {
+        const rect = volumeControl.getBoundingClientRect();
+        const volume = (e.clientX - rect.left) / rect.width;
+        audio.volume = Math.max(0, Math.min(1, volume));
+    });
 }); 
