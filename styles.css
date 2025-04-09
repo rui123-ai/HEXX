@@ -131,16 +131,13 @@ body {
 
 /* Section Styles */
 section {
-    padding: 2rem 1rem;
+    padding: 1.5rem 1rem;
     position: relative;
 }
 
 h2 {
-    font-family: 'Cinzel', serif;
-    font-size: 2.5rem;
-    color: var(--color-neon-purple);
-    text-align: center;
-    margin-bottom: 1.5rem;
+    font-size: 2rem;
+    margin-bottom: 1rem;
 }
 
 /* Band Members */
@@ -220,11 +217,10 @@ h2 {
 /* Discography */
 .albums-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: 1rem;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1.5rem;
     max-width: 1200px;
     margin: 0 auto;
-    margin-bottom: 2rem;
 }
 
 .album {
@@ -235,12 +231,39 @@ h2 {
 }
 
 .album:hover {
-    transform: translateY(-10px);
+    transform: translateY(-5px);
 }
 
-.highlight {
+.album h3 {
     color: var(--color-neon-purple);
+    font-size: 1.5rem;
+    margin-bottom: 0.5rem;
+}
+
+.album-tracks {
     margin-top: 1rem;
+    padding-top: 1rem;
+    border-top: 1px solid var(--color-crimson);
+}
+
+.track-count {
+    color: var(--color-neon-purple);
+    font-style: italic;
+    margin-bottom: 0.5rem;
+}
+
+.tracks-list {
+    list-style: none;
+    color: #ccc;
+}
+
+.tracks-list li {
+    padding: 0.3rem 0;
+    transition: color 0.3s ease;
+}
+
+.tracks-list li:hover {
+    color: var(--color-neon-purple);
 }
 
 /* Gallery */
@@ -415,7 +438,7 @@ h2 {
     }
 
     section {
-        padding: 1.5rem 1rem;
+        padding: 1rem;
     }
 
     h2 {
@@ -465,5 +488,26 @@ h2 {
     .curiosities-grid {
         gap: 0.8rem;
         margin-bottom: 1.5rem;
+    }
+
+    .animated-logo {
+        margin-top: 60px;
+        padding: 1.5rem 1rem;
+    }
+
+    .album {
+        padding: 1rem;
+    }
+
+    .tracks-list li {
+        padding: 0.2rem 0;
+    }
+
+    .about-section,
+    .discography-section,
+    .gallery-section,
+    .merch-section,
+    .contact-section {
+        margin-top: 0.5rem;
     }
 } 
