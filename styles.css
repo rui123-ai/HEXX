@@ -16,9 +16,13 @@
 body {
     background-color: var(--color-black);
     color: #fff;
-    font-family: 'Special Elite', cursive;
+    font-family: 'Architects Daughter', cursive;
     line-height: 1.6;
     overflow-x: hidden;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Cinzel', serif;
 }
 
 .cursed-overlay {
@@ -69,7 +73,7 @@ body {
 }
 
 .logo-text {
-    font-family: 'Special Elite', cursive;
+    font-family: 'Cinzel', serif;
     font-size: 1.2rem;
     color: var(--color-neon-purple);
     text-shadow: 0 0 10px var(--color-neon-purple);
@@ -89,6 +93,7 @@ body {
     font-size: 0.9rem;
     transition: color 0.3s ease;
     padding: 0.3rem 0.5rem;
+    font-family: 'Cinzel', serif;
 }
 
 .nav-links a:hover {
@@ -142,7 +147,6 @@ body {
 }
 
 h2 {
-    font-family: 'Cinzel', serif;
     font-size: 2.5rem;
     color: var(--color-neon-purple);
     text-shadow: 0 0 10px var(--color-neon-purple);
@@ -565,7 +569,7 @@ section {
     border: 1px solid var(--color-crimson);
     padding: 1rem;
     color: #fff;
-    font-family: 'Special Elite', cursive;
+    font-family: 'Cinzel', serif;
 }
 
 .cursed-form button {
@@ -696,7 +700,7 @@ section {
     padding-left: 2rem;
     position: relative;
     color: #e6e6fa;
-    font-family: 'Special Elite', cursive;
+    font-family: 'Cinzel', serif;
     line-height: 1.6;
     font-size: 0.95rem;
 }
