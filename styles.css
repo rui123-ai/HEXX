@@ -1066,35 +1066,36 @@ section {
 }
 
 .pretty-title {
+    font-size: 2.5em;
     color: #ff00ff;
-    font-size: 3rem;
     text-align: center;
-    margin-bottom: 1rem;
+    margin-bottom: 0.5rem;
+    text-shadow: 0 0 10px #ff00ff;
     font-family: 'Cinzel', serif;
-    text-shadow: 0 0 15px rgba(255, 0, 255, 0.7);
-    letter-spacing: 3px;
 }
 
 .pretty-subtitle {
-    color: #ff0066;
-    font-size: 1.5rem;
+    color: #ff69b4;
     text-align: center;
+    font-size: 1.2em;
     margin-bottom: 2rem;
     font-style: italic;
-    text-shadow: 0 0 10px rgba(255, 0, 102, 0.5);
 }
 
 .launch-tag {
-    background: #ff0066;
-    color: #fff;
-    padding: 0.5rem 1.5rem;
+    background-color: #ff0066;
+    color: white;
+    padding: 0.5rem 1rem;
     border-radius: 4px;
     display: inline-block;
-    margin: 0 auto 1rem auto;
+    margin: 0.5rem auto 1rem;
     font-weight: bold;
     text-transform: uppercase;
-    letter-spacing: 2px;
-    animation: glowTag 1.5s ease-in-out infinite alternate;
+    font-size: 0.9em;
+    letter-spacing: 1px;
+    text-align: center;
+    width: fit-content;
+    display: block;
 }
 
 .pretty-content {
