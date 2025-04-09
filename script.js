@@ -305,4 +305,91 @@ if (galleryItems && popup) {
             closePopup();
         }
     });
-} 
+}
+
+document.addEventListener('DOMContentLoaded', function() {
+    // Inicialização dos players de áudio
+    const audioPlayers = document.querySelectorAll('.custom-audio-player');
+    
+    audioPlayers.forEach(player => {
+        const audio = player.querySelector('audio');
+        const playButton = player.querySelector('.play-button');
+        const progressBar = player.querySelector('.progress');
+        const volumeSlider = player.querySelector('.volume-slider');
+        const volumeIcon = player.querySelector('.volume-icon');
+        
+        // Configurar volume inicial
+        audio.volume = 0.2;
+        volumeSlider.value = 20;
+        
+        // Play/Pause
+        playButton.addEventListener('click', function() {
+            if (audio.paused) {
+                // Pausar todos os outros players
+                audioPlayers.forEach(otherPlayer => {
+                    if (otherPlayer !== player) {
+                        const otherAudio = otherPlayer.querySelector('audio');
+                        const otherButton = otherPlayer.querySelector('.play-button');
+                        otherAudio.pause();
+                        otherButton.textContent = '▶';
+                    }
+                });
+                
+                audio.play()
+                    .then(() => {
+                        playButton.textContent = '⏸';
+                    })
+                    .catch(error => {
+                        console.error('Erro ao tocar áudio:', error);
+                        playButton.textContent = '▶';
+                    });
+            } else {
+                audio.pause();
+                playButton.textContent = '▶';
+            }
+        });
+        
+        // Atualizar barra de progresso
+        audio.addEventListener('timeupdate', function() {
+            const progress = (audio.currentTime / audio.duration) * 100;
+            progressBar.style.width = progress + '%';
+        });
+        
+        // Clique na barra de progresso
+        const progressContainer = player.querySelector('.progress-bar');
+        progressContainer.addEventListener('click', function(e) {
+            const rect = this.getBoundingClientRect();
+            const pos = (e.clientX - rect.left) / rect.width;
+            audio.currentTime = pos * audio.duration;
+        });
+        
+        // Controle de volume
+        volumeSlider.addEventListener('input', function() {
+            audio.volume = this.value / 100;
+            updateVolumeIcon(volumeIcon, this.value);
+        });
+        
+        // Atualizar ícone de volume
+        function updateVolumeIcon(icon, volume) {
+            if (volume === 0) {
+                icon.textContent = '🔇';
+            } else if (volume < 50) {
+                icon.textContent = '🔉';
+            } else {
+                icon.textContent = '🔊';
+            }
+        }
+        
+        // Tratamento de erros
+        audio.addEventListener('error', function() {
+            console.error('Erro ao carregar áudio:', audio.error);
+            playButton.textContent = '❌';
+            playButton.disabled = true;
+        });
+        
+        // Atualizar estado do botão quando o áudio terminar
+        audio.addEventListener('ended', function() {
+            playButton.textContent = '▶';
+        });
+    });
+}); 
