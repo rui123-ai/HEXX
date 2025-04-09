@@ -169,6 +169,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const playButton = player.querySelector('.play-button');
         const progressBar = player.querySelector('.progress');
         const volumeSlider = player.querySelector('.volume-slider');
+        const volumeIcon = player.querySelector('.volume-icon');
         
         // Configurar volume inicial
         audio.volume = 0.2;
@@ -205,21 +206,48 @@ document.addEventListener('DOMContentLoaded', () => {
         
         // Atualizar barra de progresso
         audio.addEventListener('timeupdate', () => {
-            const progress = (audio.currentTime / audio.duration) * 100;
-            progressBar.style.width = progress + '%';
+            if (!isNaN(audio.duration)) {
+                const progress = (audio.currentTime / audio.duration) * 100;
+                progressBar.style.width = progress + '%';
+            }
         });
         
         // Clique na barra de progresso
         const progressContainer = player.querySelector('.progress-bar');
         progressContainer.addEventListener('click', (e) => {
-            const rect = progressContainer.getBoundingClientRect();
-            const pos = (e.clientX - rect.left) / rect.width;
-            audio.currentTime = pos * audio.duration;
+            if (!isNaN(audio.duration)) {
+                const rect = progressContainer.getBoundingClientRect();
+                const pos = (e.clientX - rect.left) / rect.width;
+                audio.currentTime = pos * audio.duration;
+            }
         });
         
         // Controle de volume
         volumeSlider.addEventListener('input', (e) => {
-            audio.volume = e.target.value / 100;
+            const volume = e.target.value / 100;
+            audio.volume = volume;
+            
+            // Atualizar ícone de volume
+            if (volume === 0) {
+                volumeIcon.textContent = '🔇';
+            } else if (volume < 0.5) {
+                volumeIcon.textContent = '🔉';
+            } else {
+                volumeIcon.textContent = '🔊';
+            }
+        });
+        
+        // Clique no ícone de volume
+        volumeIcon.addEventListener('click', () => {
+            if (audio.volume > 0) {
+                audio.volume = 0;
+                volumeSlider.value = 0;
+                volumeIcon.textContent = '🔇';
+            } else {
+                audio.volume = 0.2;
+                volumeSlider.value = 20;
+                volumeIcon.textContent = '🔊';
+            }
         });
         
         // Reset quando o áudio termina
@@ -233,6 +261,11 @@ document.addEventListener('DOMContentLoaded', () => {
             console.error('Erro ao carregar o áudio:', audio.src);
             playButton.disabled = true;
             playButton.textContent = '⚠';
+        });
+        
+        // Carregar metadados do áudio
+        audio.addEventListener('loadedmetadata', () => {
+            console.log('Metadados carregados para:', audio.src);
         });
     });
 

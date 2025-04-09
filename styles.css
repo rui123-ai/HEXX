@@ -443,11 +443,12 @@ section {
 .progress-bar {
     flex: 1;
     height: 4px;
-    background: rgba(176, 38, 255, 0.2);
+    background: rgba(255, 255, 255, 0.1);
     border-radius: 2px;
-    overflow: hidden;
-    position: relative;
+    margin: 0 10px;
     cursor: pointer;
+    position: relative;
+    overflow: hidden;
 }
 
 .progress {
@@ -455,39 +456,46 @@ section {
     left: 0;
     top: 0;
     height: 100%;
-    background: var(--color-neon-purple);
+    background: var(--color-neon-green);
+    border-radius: 2px;
     transition: width 0.1s linear;
 }
 
 .volume-control {
     display: flex;
     align-items: center;
-    gap: 0.5rem;
+    gap: 5px;
     min-width: 100px;
 }
 
+.volume-icon {
+    cursor: pointer;
+    font-size: 1.2rem;
+    color: var(--color-neon-green);
+}
+
 .volume-slider {
-    width: 80px;
+    flex: 1;
     height: 4px;
     -webkit-appearance: none;
-    background: rgba(176, 38, 255, 0.2);
+    background: rgba(255, 255, 255, 0.1);
     border-radius: 2px;
     outline: none;
-    cursor: pointer;
 }
 
 .volume-slider::-webkit-slider-thumb {
     -webkit-appearance: none;
     width: 12px;
     height: 12px;
-    background: var(--color-neon-purple);
+    background: var(--color-neon-green);
     border-radius: 50%;
     cursor: pointer;
-    transition: transform 0.2s ease;
+    transition: all 0.2s ease;
 }
 
 .volume-slider::-webkit-slider-thumb:hover {
     transform: scale(1.2);
+    box-shadow: 0 0 10px var(--color-neon-green);
 }
 
 .volume-slider::-moz-range-thumb {
@@ -502,11 +510,6 @@ section {
 
 .volume-slider::-moz-range-thumb:hover {
     transform: scale(1.2);
-}
-
-.volume-icon {
-    font-size: 1.2rem;
-    color: var(--color-neon-purple);
 }
 
 /* Gallery */
