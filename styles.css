@@ -413,108 +413,170 @@ section {
     width: 100%;
     margin: 10px 0;
     background: rgba(0, 0, 0, 0.8);
-    padding: 10px;
-    border-radius: 5px;
-    border: 1px solid var(--color-neon-green);
+    padding: 15px;
+    border-radius: 10px;
+    border: 1px solid var(--color-neon-purple);
+    box-shadow: 0 0 10px rgba(128, 0, 128, 0.3);
+    transition: all 0.3s ease;
+}
+
+.custom-audio-player:hover {
+    border-color: var(--color-neon-green);
+    box-shadow: 0 0 15px rgba(0, 255, 0, 0.3);
 }
 
 .custom-audio-player audio {
-    width: 100%;
-    display: block;
-    margin-bottom: 10px;
+    display: none;
 }
 
 .player-controls {
     display: flex;
     align-items: center;
-    gap: 10px;
+    gap: 15px;
+    padding: 5px;
 }
 
 .play-button {
-    background: var(--color-neon-green);
-    border: none;
-    color: black;
-    width: 30px;
-    height: 30px;
+    background: transparent;
+    border: 2px solid var(--color-neon-purple);
+    color: var(--color-neon-purple);
+    width: 40px;
+    height: 40px;
     border-radius: 50%;
     cursor: pointer;
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 16px;
+    font-size: 1.2rem;
+    transition: all 0.3s ease;
 }
 
 .play-button:hover {
-    background: var(--color-crimson);
-    color: white;
+    background: var(--color-neon-purple);
+    color: #000;
+    transform: scale(1.1);
 }
 
 .progress-bar {
     flex-grow: 1;
-    height: 5px;
+    height: 6px;
     background: rgba(255, 255, 255, 0.1);
-    border-radius: 5px;
+    border-radius: 3px;
     cursor: pointer;
     position: relative;
+    overflow: hidden;
 }
 
 .progress {
+    position: absolute;
+    left: 0;
+    top: 0;
     height: 100%;
-    background: var(--color-neon-green);
-    border-radius: 5px;
-    width: 0;
+    background: var(--color-neon-purple);
+    border-radius: 3px;
     transition: width 0.1s linear;
+}
+
+.progress-bar:hover .progress {
+    background: var(--color-neon-green);
 }
 
 .volume-control {
     display: flex;
     align-items: center;
-    gap: 5px;
+    gap: 8px;
+    min-width: 120px;
+}
+
+.volume-icon {
+    cursor: pointer;
+    font-size: 1.2rem;
+    color: var(--color-neon-purple);
+    transition: color 0.3s ease;
+}
+
+.volume-icon:hover {
+    color: var(--color-neon-green);
 }
 
 .volume-slider {
-    width: 80px;
-    height: 5px;
+    flex: 1;
+    height: 4px;
     -webkit-appearance: none;
     background: rgba(255, 255, 255, 0.1);
-    border-radius: 5px;
+    border-radius: 2px;
     outline: none;
 }
 
 .volume-slider::-webkit-slider-thumb {
     -webkit-appearance: none;
-    width: 15px;
-    height: 15px;
-    background: var(--color-neon-green);
+    width: 12px;
+    height: 12px;
+    background: var(--color-neon-purple);
     border-radius: 50%;
     cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.volume-slider::-webkit-slider-thumb:hover {
+    background: var(--color-neon-green);
+    transform: scale(1.2);
 }
 
 .volume-slider::-moz-range-thumb {
-    width: 15px;
-    height: 15px;
-    background: var(--color-neon-green);
+    width: 12px;
+    height: 12px;
+    background: var(--color-neon-purple);
+    border: none;
     border-radius: 50%;
     cursor: pointer;
-    border: none;
+    transition: all 0.2s ease;
 }
 
-.volume-icon {
-    cursor: pointer;
-    font-size: 20px;
+.volume-slider::-moz-range-thumb:hover {
+    background: var(--color-neon-green);
+    transform: scale(1.2);
 }
 
 /* Estado desabilitado */
 .play-button:disabled {
     opacity: 0.5;
     cursor: not-allowed;
-    background: #666;
+    border-color: #666;
+    color: #666;
 }
 
 /* Feedback visual */
 .play-button.error {
-    background: var(--color-crimson);
-    color: white;
+    border-color: var(--color-crimson);
+    color: var(--color-crimson);
+}
+
+/* Animação de loading */
+@keyframes loading {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+.play-button.loading {
+    animation: loading 1s linear infinite;
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+    .custom-audio-player {
+        padding: 10px;
+    }
+
+    .play-button {
+        width: 35px;
+        height: 35px;
+        font-size: 1rem;
+    }
+
+    .volume-control {
+        min-width: 80px;
+    }
 }
 
 /* Gallery */
