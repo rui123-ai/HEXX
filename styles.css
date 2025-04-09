@@ -241,7 +241,7 @@ section {
 .albums-grid {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
-    gap: 3rem;
+    gap: 2rem;
     max-width: 1400px;
     margin: 0 auto;
     padding: 2rem;
@@ -305,6 +305,15 @@ section {
     opacity: 0.9;
     text-shadow: 0 0 5px rgba(176, 38, 255, 0.3);
     text-align: center;
+}
+
+.highlight {
+    color: #ff66ff;
+    font-size: 0.85rem;
+    text-align: center;
+    margin: -0.5rem 0 0.8rem 0;
+    font-style: italic;
+    text-shadow: 0 0 5px rgba(255, 102, 255, 0.3);
 }
 
 .album-tracks {
