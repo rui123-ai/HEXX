@@ -175,46 +175,32 @@ document.addEventListener('DOMContentLoaded', () => {
             return;
         }
 
+        // Log para debug
+        console.log('Audio source:', audio.src);
+        console.log('Audio element:', audio);
+
         // Configurar volume inicial
         audio.volume = 0.2;
         volumeSlider.value = 20;
 
-        // Função para reproduzir áudio
-        const playAudio = async () => {
-            try {
-                // Pausar todos os outros players
-                audioPlayers.forEach(otherPlayer => {
-                    const otherAudio = otherPlayer.querySelector('audio');
-                    if (otherAudio && otherAudio !== audio) {
-                        otherAudio.pause();
-                        otherPlayer.querySelector('.play-button').textContent = '▶';
-                    }
-                });
-
-                // Tentar reproduzir o áudio
-                const playPromise = audio.play();
-                if (playPromise !== undefined) {
-                    await playPromise;
-                    playButton.textContent = '⏸';
-                }
-            } catch (error) {
-                console.error('Erro ao reproduzir áudio:', error);
-                playButton.textContent = '⚠';
-            }
-        };
-
-        // Função para pausar áudio
-        const pauseAudio = () => {
-            audio.pause();
-            playButton.textContent = '▶';
-        };
-
-        // Play/Pause com verificação de estado
+        // Play/Pause simplificado
         playButton.addEventListener('click', () => {
+            console.log('Botão clicado');
             if (audio.paused) {
-                playAudio();
+                console.log('Tentando reproduzir áudio');
+                audio.play()
+                    .then(() => {
+                        console.log('Áudio reproduzindo com sucesso');
+                        playButton.textContent = '⏸';
+                    })
+                    .catch(error => {
+                        console.error('Erro ao reproduzir:', error);
+                        playButton.textContent = '⚠';
+                    });
             } else {
-                pauseAudio();
+                console.log('Pausando áudio');
+                audio.pause();
+                playButton.textContent = '▶';
             }
         });
 
@@ -257,6 +243,7 @@ document.addEventListener('DOMContentLoaded', () => {
         // Tratamento de erros
         audio.addEventListener('error', (e) => {
             console.error('Erro no player de áudio:', e);
+            console.error('Código do erro:', audio.error ? audio.error.code : 'desconhecido');
             playButton.disabled = true;
             playButton.textContent = '❌';
         });
@@ -271,6 +258,11 @@ document.addEventListener('DOMContentLoaded', () => {
         audio.addEventListener('loadedmetadata', () => {
             console.log('Metadados carregados para:', audio.src);
             playButton.disabled = false;
+        });
+
+        // Log quando o áudio estiver pronto para reprodução
+        audio.addEventListener('canplay', () => {
+            console.log('Áudio pronto para reprodução:', audio.src);
         });
     });
 
