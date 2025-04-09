@@ -275,15 +275,14 @@ section {
 }
 
 .album {
-    background: rgba(18, 18, 18, 0.95);
-    border: 1px solid rgba(107, 44, 245, 0.3);
-    border-radius: 12px;
+    background: rgba(20, 20, 30, 0.9);
+    border-radius: 15px;
     padding: 2rem;
-    transition: all 0.3s ease;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+    margin: 1rem;
+    border: 1px solid rgba(107, 44, 245, 0.3);
+    flex: 1;
+    min-width: 300px;
+    max-width: 500px;
 }
 
 .album:hover {
@@ -334,50 +333,43 @@ section {
 .tracks-list {
     list-style: none;
     padding: 0;
-    margin: 1.5rem 0;
+    margin: 0;
 }
 
 .tracks-list li {
-    display: flex;
-    align-items: center;
-    padding: 0.8rem 1rem;
-    margin: 0.5rem 0;
-    background: rgba(30, 30, 30, 0.6);
-    border-radius: 8px;
-    transition: all 0.3s ease;
+    margin-bottom: 1rem;
 }
 
-.tracks-list li:hover {
-    background: rgba(107, 44, 245, 0.2);
-}
-
-.track-info {
-    flex: 1;
+.track {
     display: flex;
     align-items: center;
-    gap: 1rem;
+    gap: 10px;
+    padding: 8px;
+    background: rgba(30, 30, 40, 0.6);
+    border-radius: 10px;
+    margin-bottom: 5px;
 }
 
 .track-number {
-    color: #b026ff;
-    font-size: 0.9rem;
+    color: #6b2cf5;
+    font-weight: bold;
     min-width: 30px;
 }
 
 .track-title {
     color: #fff;
-    font-size: 1rem;
+    flex-grow: 1;
 }
 
 .custom-audio-player {
     display: flex;
     align-items: center;
     gap: 10px;
-    background: rgba(20, 20, 30, 0.8);
+    background: rgba(40, 40, 50, 0.8);
     padding: 8px 15px;
-    border-radius: 30px;
-    margin: 5px 0;
-    border: 1px solid rgba(107, 44, 245, 0.3);
+    border-radius: 10px;
+    margin: 0 8px;
+    border: 1px solid rgba(107, 44, 245, 0.2);
 }
 
 .play-button {
@@ -392,6 +384,7 @@ section {
     align-items: center;
     justify-content: center;
     transition: all 0.3s ease;
+    font-size: 14px;
 }
 
 .play-button:hover {
@@ -402,12 +395,13 @@ section {
 
 .progress-bar {
     flex-grow: 1;
-    height: 6px;
+    height: 8px;
     background: rgba(255, 255, 255, 0.1);
-    border-radius: 3px;
+    border-radius: 4px;
     cursor: pointer;
     position: relative;
     overflow: hidden;
+    border: 1px solid rgba(107, 44, 245, 0.2);
 }
 
 .progress {
@@ -415,6 +409,26 @@ section {
     background: linear-gradient(90deg, #6b2cf5, #9333ea);
     border-radius: 3px;
     transition: width 0.1s linear;
+    position: relative;
+}
+
+.progress::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(90deg, 
+        rgba(255, 255, 255, 0.1) 0%,
+        rgba(255, 255, 255, 0.2) 50%,
+        rgba(255, 255, 255, 0.1) 100%);
+    animation: progressShine 2s linear infinite;
+}
+
+@keyframes progressShine {
+    0% { transform: translateX(-100%); }
+    100% { transform: translateX(100%); }
 }
 
 .volume-control {
@@ -422,11 +436,14 @@ section {
     align-items: center;
     gap: 8px;
     min-width: 100px;
+    background: rgba(30, 30, 40, 0.6);
+    padding: 4px 8px;
+    border-radius: 15px;
 }
 
 .volume-icon {
     color: #6b2cf5;
-    font-size: 18px;
+    font-size: 16px;
     cursor: pointer;
     transition: color 0.3s ease;
 }
