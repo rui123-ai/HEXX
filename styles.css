@@ -3,7 +3,7 @@
     --color-crimson: #8b0000;
     --color-purple: #2d0047;
     --color-gray: #2a2a2a;
-    --color-neon-green: #39ff14;
+    --color-neon-purple: #b026ff;
     --color-smoke: rgba(0, 0, 0, 0.7);
 }
 
@@ -60,19 +60,19 @@ body {
 .logo-image {
     height: 50px;
     width: auto;
-    filter: drop-shadow(0 0 10px var(--color-neon-green));
+    filter: drop-shadow(0 0 10px var(--color-neon-purple));
     transition: filter 0.3s ease;
 }
 
 .logo-image:hover {
-    filter: drop-shadow(0 0 15px var(--color-neon-green));
+    filter: drop-shadow(0 0 15px var(--color-neon-purple));
 }
 
 .logo-text {
     font-family: 'Special Elite', cursive;
     font-size: 1.5rem;
-    color: var(--color-neon-green);
-    text-shadow: 0 0 10px var(--color-neon-green);
+    color: var(--color-neon-purple);
+    text-shadow: 0 0 10px var(--color-neon-purple);
     letter-spacing: 2px;
     font-weight: bold;
 }
@@ -91,7 +91,7 @@ body {
 }
 
 .nav-links a:hover {
-    color: var(--color-neon-green);
+    color: var(--color-neon-purple);
 }
 
 /* Hero Section */
@@ -117,15 +117,15 @@ body {
     max-width: 600px;
     width: 90%;
     height: auto;
-    filter: drop-shadow(0 0 20px var(--color-neon-green));
+    filter: drop-shadow(0 0 20px var(--color-neon-purple));
     animation: glitch 2s infinite;
 }
 
 .glitch-text {
     font-family: 'Cinzel', serif;
     font-size: 5rem;
-    color: var(--color-neon-green);
-    text-shadow: 0 0 20px var(--color-neon-green);
+    color: var(--color-neon-purple);
+    text-shadow: 0 0 20px var(--color-neon-purple);
     animation: glitch 2s infinite;
 }
 
@@ -137,30 +137,31 @@ body {
 
 /* Section Styles */
 section {
-    padding: 3rem 2rem;
+    padding: 2rem 1rem;
     position: relative;
 }
 
 h2 {
     font-family: 'Cinzel', serif;
     font-size: 2.5rem;
-    color: var(--color-neon-green);
+    color: var(--color-neon-purple);
     text-align: center;
-    margin-bottom: 2rem;
+    margin-bottom: 1.5rem;
 }
 
 /* Band Members */
 .band-members {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 1.5rem;
+    gap: 1rem;
     max-width: 1200px;
     margin: 0 auto;
+    margin-bottom: 2rem;
 }
 
 .member {
     background: rgba(45, 0, 71, 0.3);
-    padding: 2rem;
+    padding: 1.5rem;
     border: 1px solid var(--color-crimson);
     border-radius: 5px;
     text-align: center;
@@ -179,7 +180,7 @@ h2 {
     overflow: hidden;
     border-radius: 50%;
     border: 2px solid var(--color-crimson);
-    box-shadow: 0 0 20px var(--color-neon-green);
+    box-shadow: 0 0 20px var(--color-neon-purple);
 }
 
 .member-photo {
@@ -194,7 +195,7 @@ h2 {
 }
 
 .member h3 {
-    color: var(--color-neon-green);
+    color: var(--color-neon-purple);
     font-size: 1.8rem;
     margin-bottom: 0.5rem;
 }
@@ -226,14 +227,15 @@ h2 {
 .albums-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: 1.5rem;
+    gap: 1rem;
     max-width: 1200px;
     margin: 0 auto;
+    margin-bottom: 2rem;
 }
 
 .album {
     background: rgba(45, 0, 71, 0.3);
-    padding: 2rem;
+    padding: 1.5rem;
     border: 1px solid var(--color-crimson);
     transition: transform 0.3s ease;
 }
@@ -243,7 +245,7 @@ h2 {
 }
 
 .highlight {
-    color: var(--color-neon-green);
+    color: var(--color-neon-purple);
     margin-top: 1rem;
 }
 
@@ -251,9 +253,10 @@ h2 {
 .gallery-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: 1.5rem;
+    gap: 1rem;
     max-width: 1200px;
     margin: 0 auto;
+    margin-bottom: 2rem;
 }
 
 .gallery-item {
@@ -271,14 +274,15 @@ h2 {
 .merch-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: 1.5rem;
+    gap: 1rem;
     max-width: 1200px;
     margin: 0 auto;
+    margin-bottom: 2rem;
 }
 
 .merch-item {
     background: rgba(45, 0, 71, 0.3);
-    padding: 2rem;
+    padding: 1.5rem;
     border: 1px solid var(--color-crimson);
     text-align: center;
 }
@@ -316,7 +320,7 @@ h2 {
 }
 
 .cursed-form button:hover {
-    background: var(--color-neon-green);
+    background: var(--color-neon-purple);
     color: var(--color-black);
 }
 
@@ -335,7 +339,7 @@ h2 {
 }
 
 .social-link:hover {
-    color: var(--color-neon-green);
+    color: var(--color-neon-purple);
 }
 
 /* Footer */
@@ -349,23 +353,23 @@ h2 {
 /* Animations */
 @keyframes glitch {
     0% {
-        filter: drop-shadow(0 0 20px var(--color-neon-green));
+        filter: drop-shadow(0 0 20px var(--color-neon-purple));
         transform: translateX(0);
     }
     25% {
-        filter: drop-shadow(-2px 0 var(--color-crimson)) drop-shadow(2px 2px var(--color-neon-green));
+        filter: drop-shadow(-2px 0 var(--color-crimson)) drop-shadow(2px 2px var(--color-neon-purple));
         transform: translateX(2px) translateY(2px);
     }
     50% {
-        filter: drop-shadow(2px -2px var(--color-crimson)) drop-shadow(-2px -2px var(--color-neon-green));
+        filter: drop-shadow(2px -2px var(--color-crimson)) drop-shadow(-2px -2px var(--color-neon-purple));
         transform: translateX(-2px) translateY(-2px);
     }
     75% {
-        filter: drop-shadow(2px 0 var(--color-crimson)) drop-shadow(-2px -2px var(--color-neon-green));
+        filter: drop-shadow(2px 0 var(--color-crimson)) drop-shadow(-2px -2px var(--color-neon-purple));
         transform: translateX(2px) translateY(-2px);
     }
     100% {
-        filter: drop-shadow(0 0 20px var(--color-neon-green));
+        filter: drop-shadow(0 0 20px var(--color-neon-purple));
         transform: translateX(0);
     }
 }
@@ -378,14 +382,15 @@ h2 {
 .curiosities-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    gap: 2rem;
+    gap: 1rem;
     max-width: 1200px;
     margin: 0 auto;
+    margin-bottom: 2rem;
 }
 
 .curiosity-item {
     background: rgba(0, 0, 0, 0.7);
-    padding: 2rem;
+    padding: 1.5rem;
     border: 1px solid var(--color-crimson);
     border-radius: 5px;
     transition: all 0.3s ease;
@@ -393,11 +398,11 @@ h2 {
 
 .curiosity-item:hover {
     transform: translateY(-5px);
-    box-shadow: 0 0 15px var(--color-neon-green);
+    box-shadow: 0 0 15px var(--color-neon-purple);
 }
 
 .curiosity-item h3 {
-    color: var(--color-neon-green);
+    color: var(--color-neon-purple);
     font-size: 1.5rem;
     margin-bottom: 1rem;
     text-align: center;
@@ -409,6 +414,22 @@ h2 {
     text-align: justify;
 }
 
+/* Top Banner Image */
+.top-image {
+    margin-top: 60px; /* Height of header */
+    width: 100%;
+    background: var(--color-black);
+    text-align: center;
+    padding: 2rem 0;
+}
+
+.banner-image {
+    max-width: 600px;
+    width: 90%;
+    height: auto;
+    filter: drop-shadow(0 0 20px var(--color-neon-purple));
+}
+
 /* Responsive Design */
 @media (max-width: 768px) {
     .nav-menu {
@@ -416,12 +437,12 @@ h2 {
     }
 
     section {
-        padding: 2rem 1rem;
+        padding: 1.5rem 1rem;
     }
 
     h2 {
         font-size: 2rem;
-        margin-bottom: 1.5rem;
+        margin-bottom: 1rem;
     }
 
     .nav-links {
@@ -453,5 +474,19 @@ h2 {
 
     .curiosity-item {
         padding: 1.5rem;
+    }
+
+    .top-image {
+        margin-top: 50px;
+        padding: 1rem 0;
+    }
+
+    .band-members,
+    .albums-grid,
+    .gallery-grid,
+    .merch-grid,
+    .curiosities-grid {
+        gap: 0.8rem;
+        margin-bottom: 1.5rem;
     }
 } 
