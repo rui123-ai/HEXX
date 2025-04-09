@@ -170,35 +170,51 @@ document.addEventListener('DOMContentLoaded', () => {
         const progressBar = player.querySelector('.progress');
         const volumeSlider = player.querySelector('.volume-slider');
         
-        if (!audio || !playButton || !progressBar || !volumeSlider) return;
+        if (!audio || !playButton || !progressBar || !volumeSlider) {
+            console.error('Elementos do player não encontrados');
+            return;
+        }
 
         // Configurar volume inicial
         audio.volume = 0.2;
         volumeSlider.value = 20;
 
-        // Play/Pause com verificação de estado
-        playButton.addEventListener('click', async () => {
+        // Função para reproduzir áudio
+        const playAudio = async () => {
             try {
-                if (audio.paused) {
-                    // Pausar todos os outros players
-                    audioPlayers.forEach(otherPlayer => {
-                        const otherAudio = otherPlayer.querySelector('audio');
-                        if (otherAudio && otherAudio !== audio) {
-                            otherAudio.pause();
-                            otherPlayer.querySelector('.play-button').textContent = '▶';
-                        }
-                    });
-                    
-                    // Tentar reproduzir o áudio
-                    await audio.play();
+                // Pausar todos os outros players
+                audioPlayers.forEach(otherPlayer => {
+                    const otherAudio = otherPlayer.querySelector('audio');
+                    if (otherAudio && otherAudio !== audio) {
+                        otherAudio.pause();
+                        otherPlayer.querySelector('.play-button').textContent = '▶';
+                    }
+                });
+
+                // Tentar reproduzir o áudio
+                const playPromise = audio.play();
+                if (playPromise !== undefined) {
+                    await playPromise;
                     playButton.textContent = '⏸';
-                } else {
-                    audio.pause();
-                    playButton.textContent = '▶';
                 }
             } catch (error) {
                 console.error('Erro ao reproduzir áudio:', error);
                 playButton.textContent = '⚠';
+            }
+        };
+
+        // Função para pausar áudio
+        const pauseAudio = () => {
+            audio.pause();
+            playButton.textContent = '▶';
+        };
+
+        // Play/Pause com verificação de estado
+        playButton.addEventListener('click', () => {
+            if (audio.paused) {
+                playAudio();
+            } else {
+                pauseAudio();
             }
         });
 
@@ -249,6 +265,12 @@ document.addEventListener('DOMContentLoaded', () => {
         audio.addEventListener('ended', () => {
             playButton.textContent = '▶';
             progressBar.style.width = '0%';
+        });
+
+        // Carregar metadados do áudio
+        audio.addEventListener('loadedmetadata', () => {
+            console.log('Metadados carregados para:', audio.src);
+            playButton.disabled = false;
         });
     });
 
