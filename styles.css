@@ -495,13 +495,86 @@ section {
 
 .special-item {
     background: linear-gradient(45deg, rgba(26, 15, 46, 0.95), rgba(45, 27, 78, 0.95));
-    border: 1px solid #6b2cf5;
+    border: 2px solid #6b2cf5;
     box-shadow: 0 0 20px rgba(107, 44, 245, 0.3);
+    position: relative;
+    animation: gradientBG 12s ease infinite;
+}
+
+.special-item::before {
+    content: '';
+    position: absolute;
+    top: -2px;
+    left: -2px;
+    right: -2px;
+    bottom: -2px;
+    background: linear-gradient(45deg, 
+        #6b2cf5, #2ecc71, #e74c3c, #2c3e50
+    );
+    border-radius: 8px;
+    z-index: -1;
+    animation: borderGlow 8s linear infinite;
+    background-size: 400% 400%;
 }
 
 .special-item h3 {
-    color: #b026ff;
-    border-bottom-color: rgba(176, 38, 255, 0.3);
+    color: #fff;
+    border-bottom-color: rgba(255, 255, 255, 0.3);
+    text-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+    animation: titleGlow 8s linear infinite;
+}
+
+@keyframes gradientBG {
+    0% {
+        background: linear-gradient(45deg, rgba(107, 44, 245, 0.95), rgba(45, 27, 78, 0.95));
+    }
+    25% {
+        background: linear-gradient(45deg, rgba(46, 204, 113, 0.95), rgba(27, 78, 45, 0.95));
+    }
+    50% {
+        background: linear-gradient(45deg, rgba(231, 76, 60, 0.95), rgba(78, 27, 27, 0.95));
+    }
+    75% {
+        background: linear-gradient(45deg, rgba(44, 62, 80, 0.95), rgba(27, 45, 78, 0.95));
+    }
+    100% {
+        background: linear-gradient(45deg, rgba(107, 44, 245, 0.95), rgba(45, 27, 78, 0.95));
+    }
+}
+
+@keyframes borderGlow {
+    0% {
+        background-position: 0% 50%;
+    }
+    50% {
+        background-position: 100% 50%;
+    }
+    100% {
+        background-position: 0% 50%;
+    }
+}
+
+@keyframes titleGlow {
+    0% {
+        color: #6b2cf5;
+        text-shadow: 0 0 10px rgba(107, 44, 245, 0.5);
+    }
+    25% {
+        color: #2ecc71;
+        text-shadow: 0 0 10px rgba(46, 204, 113, 0.5);
+    }
+    50% {
+        color: #e74c3c;
+        text-shadow: 0 0 10px rgba(231, 76, 60, 0.5);
+    }
+    75% {
+        color: #2c3e50;
+        text-shadow: 0 0 10px rgba(44, 62, 80, 0.5);
+    }
+    100% {
+        color: #6b2cf5;
+        text-shadow: 0 0 10px rgba(107, 44, 245, 0.5);
+    }
 }
 
 /* Responsive Design */
