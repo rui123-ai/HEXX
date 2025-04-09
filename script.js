@@ -149,4 +149,12 @@ style.textContent = `
         }
     }
 `;
-document.head.appendChild(style); 
+document.head.appendChild(style);
+
+// Set default volume for video
+document.addEventListener('DOMContentLoaded', function() {
+    const video = document.querySelector('.video-teaser video');
+    if (video) {
+        video.volume = 0.3; // Set volume to 30%
+    }
+}); 
