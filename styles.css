@@ -1473,4 +1473,46 @@ section {
         align-items: flex-start;
         gap: 0.5rem;
     }
+}
+
+.official-comments {
+    margin-bottom: 3rem;
+    border-bottom: 2px solid var(--color-neon-purple);
+    padding-bottom: 2rem;
+}
+
+.comment.permanent {
+    background: rgba(30, 20, 40, 0.95);
+    border: 1px solid var(--color-neon-purple);
+    box-shadow: 0 0 15px rgba(176, 38, 255, 0.15);
+}
+
+.comment.permanent:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 5px 20px rgba(176, 38, 255, 0.25);
+}
+
+.comment.permanent .comment-header h4 {
+    color: #ff66ff;
+    font-weight: bold;
+}
+
+.comment.permanent .comment-text {
+    color: #fff;
+    font-size: 1.1rem;
+}
+
+.comment.permanent .comment-date {
+    color: #b388ff;
+}
+
+@media (max-width: 768px) {
+    .official-comments {
+        margin-bottom: 2rem;
+        padding-bottom: 1.5rem;
+    }
+
+    .comment.permanent .comment-text {
+        font-size: 1rem;
+    }
 } 
