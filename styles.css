@@ -47,7 +47,7 @@ body {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 0.5rem 2rem;
+    padding: 0.3rem 1rem;
     max-width: 1200px;
     margin: 0 auto;
 }
@@ -70,24 +70,25 @@ body {
 
 .logo-text {
     font-family: 'Special Elite', cursive;
-    font-size: 1.5rem;
+    font-size: 1.2rem;
     color: var(--color-neon-purple);
     text-shadow: 0 0 10px var(--color-neon-purple);
-    letter-spacing: 2px;
+    letter-spacing: 1px;
     font-weight: bold;
 }
 
 .nav-links {
     display: flex;
     list-style: none;
-    gap: 2rem;
+    gap: 1rem;
 }
 
 .nav-links a {
     color: #fff;
     text-decoration: none;
-    font-size: 1.1rem;
+    font-size: 0.9rem;
     transition: color 0.3s ease;
+    padding: 0.3rem 0.5rem;
 }
 
 .nav-links a:hover {
