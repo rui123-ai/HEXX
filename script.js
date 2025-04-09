@@ -212,4 +212,85 @@ document.querySelectorAll('.custom-audio-player').forEach(player => {
         const volume = (e.clientX - rect.left) / rect.width;
         audio.volume = Math.max(0, Math.min(1, volume));
     });
+});
+
+// Gerenciamento de comentários
+document.addEventListener('DOMContentLoaded', function() {
+    const commentForm = document.getElementById('commentForm');
+    const commentsList = document.querySelector('.comments-list');
+    const showMoreBtn = document.getElementById('showMoreComments');
+
+    // Carregar comentários do localStorage
+    let comments = JSON.parse(localStorage.getItem('comments')) || [];
+
+    // Mostrar/esconder comentários
+    showMoreBtn.addEventListener('click', function() {
+        const collapsedComments = document.querySelectorAll('.comment.collapsed');
+        collapsedComments.forEach(comment => {
+            comment.classList.remove('collapsed');
+        });
+        showMoreBtn.style.display = 'none';
+    });
+
+    // Adicionar novo comentário
+    commentForm.addEventListener('submit', function(e) {
+        e.preventDefault();
+        
+        const name = document.getElementById('commentName').value;
+        const text = document.getElementById('commentText').value;
+        const date = new Date().toLocaleDateString();
+        const id = Date.now();
+
+        const newComment = {
+            id: id,
+            name: name,
+            text: text,
+            date: date
+        };
+
+        comments.unshift(newComment);
+        localStorage.setItem('comments', JSON.stringify(comments));
+        
+        // Criar e adicionar o novo comentário ao DOM
+        const commentElement = createCommentElement(newComment);
+        commentsList.insertBefore(commentElement, commentsList.firstChild);
+        
+        // Limpar o formulário
+        commentForm.reset();
+    });
+
+    // Excluir comentário
+    commentsList.addEventListener('click', function(e) {
+        if (e.target.classList.contains('delete-comment')) {
+            const commentId = parseInt(e.target.dataset.id);
+            const commentElement = e.target.closest('.comment');
+            
+            if (confirm('Tem certeza que deseja excluir este comentário?')) {
+                comments = comments.filter(comment => comment.id !== commentId);
+                localStorage.setItem('comments', JSON.stringify(comments));
+                commentElement.remove();
+            }
+        }
+    });
+
+    // Função para criar elemento de comentário
+    function createCommentElement(comment) {
+        const div = document.createElement('div');
+        div.className = 'comment';
+        div.innerHTML = `
+            <div class="comment-header">
+                <h4>${comment.name}</h4>
+                <span class="comment-date">${comment.date}</span>
+            </div>
+            <p class="comment-text">${comment.text}</p>
+            <button class="delete-comment" data-id="${comment.id}">Excluir</button>
+        `;
+        return div;
+    }
+
+    // Carregar comentários existentes
+    comments.forEach(comment => {
+        const commentElement = createCommentElement(comment);
+        commentsList.insertBefore(commentElement, showMoreBtn);
+    });
 }); 
