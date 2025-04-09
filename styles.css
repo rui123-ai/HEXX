@@ -247,6 +247,33 @@ section {
     padding: 2rem;
 }
 
+.album-cover {
+    width: 100%;
+    aspect-ratio: 1;
+    margin-bottom: 1.5rem;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+    border: 1px solid var(--color-neon-purple);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.album-cover:hover {
+    transform: scale(1.02);
+    box-shadow: 0 8px 25px rgba(176, 38, 255, 0.4);
+}
+
+.album-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+}
+
+.album-cover:hover .album-image {
+    transform: scale(1.05);
+}
+
 .album {
     background: rgba(18, 18, 18, 0.95);
     border: 1px solid rgba(107, 44, 245, 0.3);
@@ -265,6 +292,19 @@ section {
     color: var(--color-neon-purple);
     font-size: 1.5rem;
     margin-bottom: 0.5rem;
+    text-align: center;
+}
+
+.album-subtitle {
+    color: #b026ff;
+    font-size: 0.9rem;
+    margin: -0.3rem 0 0.8rem 0;
+    font-style: italic;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    opacity: 0.9;
+    text-shadow: 0 0 5px rgba(176, 38, 255, 0.3);
+    text-align: center;
 }
 
 .album-tracks {
@@ -369,18 +409,6 @@ section {
     background: rgba(255, 255, 255, 0.1);
     border-radius: 2px;
     cursor: pointer;
-}
-
-.album-subtitle {
-    font-family: 'Special Elite', cursive;
-    font-size: 0.9rem;
-    color: #b026ff;
-    margin: -0.3rem 0 0.8rem 0;
-    font-style: italic;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    opacity: 0.9;
-    text-shadow: 0 0 5px rgba(176, 38, 255, 0.3);
 }
 
 /* Gallery */
