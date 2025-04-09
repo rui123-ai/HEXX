@@ -130,14 +130,32 @@ body {
 }
 
 /* Section Styles */
-section {
-    padding: 1.5rem 1rem;
-    position: relative;
+.section-title {
+    text-align: center;
+    margin-bottom: 2rem;
+    padding: 1rem 0;
+    border-bottom: 1px solid var(--color-crimson);
+    background: linear-gradient(to right, transparent, var(--color-purple), transparent);
 }
 
 h2 {
-    font-size: 2rem;
-    margin-bottom: 1rem;
+    font-family: 'Cinzel', serif;
+    font-size: 2.5rem;
+    color: var(--color-neon-purple);
+    text-shadow: 0 0 10px var(--color-neon-purple);
+    text-transform: uppercase;
+    letter-spacing: 2px;
+}
+
+section {
+    padding: 2rem 0;
+    position: relative;
+}
+
+.animated-logo {
+    padding: 2rem 0;
+    text-align: center;
+    background: linear-gradient(45deg, var(--color-black), var(--color-purple));
 }
 
 /* Band Members */
@@ -148,6 +166,7 @@ h2 {
     max-width: 1200px;
     margin: 0 auto;
     margin-bottom: 2rem;
+    padding: 0 1rem;
 }
 
 .member {
@@ -221,6 +240,7 @@ h2 {
     gap: 1.5rem;
     max-width: 1200px;
     margin: 0 auto;
+    padding: 0 1rem;
 }
 
 .album {
@@ -274,6 +294,7 @@ h2 {
     max-width: 1200px;
     margin: 0 auto;
     margin-bottom: 2rem;
+    padding: 0 1rem;
 }
 
 .gallery-item {
@@ -295,6 +316,7 @@ h2 {
     max-width: 1200px;
     margin: 0 auto;
     margin-bottom: 2rem;
+    padding: 0 1rem;
 }
 
 .merch-item {
@@ -403,6 +425,7 @@ h2 {
     max-width: 1200px;
     margin: 0 auto;
     margin-bottom: 2rem;
+    padding: 0 1rem;
 }
 
 .curiosity-item {
@@ -438,12 +461,11 @@ h2 {
     }
 
     section {
-        padding: 1rem;
+        padding: 1.5rem 0;
     }
 
     h2 {
         font-size: 2rem;
-        margin-bottom: 1rem;
     }
 
     .nav-links {
@@ -509,5 +531,10 @@ h2 {
     .merch-section,
     .contact-section {
         margin-top: 0.5rem;
+    }
+
+    .section-title {
+        margin-bottom: 1.5rem;
+        padding: 0.8rem 0;
     }
 } 
