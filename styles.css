@@ -1659,35 +1659,56 @@ section {
 .floating-witch {
     position: fixed;
     bottom: 20px;
-    right: 20px;
+    left: 20px;
     z-index: 1000;
+    display: flex;
+    align-items: flex-end;
     pointer-events: none;
 }
 
 .witch-container {
     display: flex;
-    align-items: center;
-    gap: 20px;
-    background: rgba(0, 0, 0, 0.7);
-    padding: 15px;
-    border-radius: 10px;
-    max-width: 600px;
+    align-items: flex-end;
+    gap: 10px;
 }
 
 .witch-image {
-    width: 150px;
+    width: 180px;
     height: auto;
     filter: drop-shadow(0 0 8px rgba(128, 0, 255, 0.6));
     animation: neonPulse 2s ease-in-out infinite;
 }
 
 .witch-quote {
+    position: relative;
+    background-color: rgba(0, 0, 0, 0.85);
+    padding: 15px;
+    border-radius: 10px;
+    max-width: 300px;
+    margin-bottom: 20px;
+    border: 1px solid rgba(128, 0, 255, 0.3);
+    box-shadow: 0 0 10px rgba(128, 0, 255, 0.2);
+}
+
+.witch-quote::before {
+    content: '';
+    position: absolute;
+    left: -10px;
+    bottom: 20px;
+    width: 0;
+    height: 0;
+    border-top: 10px solid transparent;
+    border-bottom: 10px solid transparent;
+    border-right: 10px solid rgba(0, 0, 0, 0.85);
+}
+
+.witch-quote p {
     color: #fff;
     font-family: 'Cinzel', serif;
     font-size: 0.9em;
     line-height: 1.6;
-    text-shadow: 0 0 5px rgba(255, 255, 255, 0.5);
-    max-width: 400px;
+    margin: 0;
+    text-shadow: 0 0 5px rgba(255, 255, 255, 0.3);
 }
 
 .quote-author {
@@ -1713,16 +1734,26 @@ section {
 @media (max-width: 768px) {
     .witch-container {
         flex-direction: column;
-        text-align: center;
-        max-width: 300px;
-        margin-right: 10px;
+        align-items: flex-start;
+        margin-left: 10px;
     }
 
     .witch-image {
-        width: 120px;
+        width: 140px;
     }
 
     .witch-quote {
         font-size: 0.8em;
+        max-width: 250px;
+        margin-bottom: 10px;
+    }
+
+    .witch-quote::before {
+        left: 20px;
+        bottom: -10px;
+        border-left: 10px solid transparent;
+        border-right: 10px solid transparent;
+        border-top: 10px solid rgba(0, 0, 0, 0.85);
+        border-bottom: none;
     }
 } 
