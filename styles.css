@@ -423,20 +423,22 @@ section {
 
 .curiosities-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    gap: 1rem;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
     max-width: 1200px;
     margin: 0 auto;
-    margin-bottom: 2rem;
-    padding: 0 1rem;
+    padding: 2rem;
 }
 
 .curiosity-item {
     background: rgba(0, 0, 0, 0.7);
-    padding: 1.5rem;
+    padding: 2rem;
     border: 1px solid var(--color-crimson);
-    border-radius: 5px;
+    border-radius: 8px;
     transition: all 0.3s ease;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
 }
 
 .curiosity-item:hover {
@@ -445,16 +447,61 @@ section {
 }
 
 .curiosity-item h3 {
-    color: var(--color-neon-purple);
-    font-size: 1.5rem;
-    margin-bottom: 1rem;
+    color: #ff66ff;
+    font-family: 'Cinzel', serif;
+    font-size: 1.4rem;
+    margin-bottom: 1.5rem;
     text-align: center;
+    padding-bottom: 0.8rem;
+    border-bottom: 1px solid rgba(255, 102, 255, 0.3);
+    text-shadow: 0 0 5px rgba(255, 102, 255, 0.5);
 }
 
 .curiosity-item p {
-    color: #fff;
+    color: #e6e6fa;
+    line-height: 1.8;
+    text-align: left;
+    margin-bottom: 1rem;
+    font-size: 1rem;
+    letter-spacing: 0.5px;
+}
+
+.personality-list,
+.song-list {
+    list-style: none;
+    padding: 0.5rem 0;
+    margin: 0.5rem 0;
+}
+
+.personality-list li,
+.song-list li {
+    margin: 0.8rem 0;
+    padding-left: 2rem;
+    position: relative;
+    color: #e6e6fa;
+    font-family: 'Special Elite', cursive;
     line-height: 1.6;
-    text-align: justify;
+    font-size: 0.95rem;
+}
+
+.personality-list li:before,
+.song-list li:before {
+    content: 'ღ';
+    position: absolute;
+    left: 0;
+    color: #ff66ff;
+    font-size: 1.2rem;
+}
+
+.special-item {
+    background: linear-gradient(45deg, rgba(26, 15, 46, 0.95), rgba(45, 27, 78, 0.95));
+    border: 1px solid #6b2cf5;
+    box-shadow: 0 0 20px rgba(107, 44, 245, 0.3);
+}
+
+.special-item h3 {
+    color: #b026ff;
+    border-bottom-color: rgba(176, 38, 255, 0.3);
 }
 
 /* Responsive Design */
@@ -539,6 +586,27 @@ section {
     .section-title {
         margin-bottom: 1.5rem;
         padding: 0.8rem 0;
+    }
+
+    .curiosities-grid {
+        grid-template-columns: 1fr;
+        padding: 1rem;
+        gap: 1.5rem;
+    }
+
+    .curiosity-item {
+        padding: 1.5rem;
+    }
+
+    .curiosity-item h3 {
+        font-size: 1.2rem;
+        margin-bottom: 1rem;
+    }
+
+    .personality-list li,
+    .song-list li {
+        font-size: 0.9rem;
+        padding-left: 1.5rem;
     }
 }
 
@@ -674,41 +742,4 @@ section {
     0% { opacity: 1; }
     50% { opacity: 0; }
     100% { opacity: 1; }
-}
-
-.personality-list,
-.song-list {
-    list-style: none;
-    padding: 0;
-    margin: 1rem 0;
-}
-
-.personality-list li,
-.song-list li {
-    margin: 0.5rem 0;
-    padding-left: 1.5rem;
-    position: relative;
-    color: #e6e6fa;
-    font-family: 'Special Elite', cursive;
-}
-
-.personality-list li:before,
-.song-list li:before {
-    content: 'ღ';
-    position: absolute;
-    left: 0;
-    color: #ff66ff;
-}
-
-.special-item {
-    background: linear-gradient(45deg, rgba(26, 15, 46, 0.9), rgba(45, 27, 78, 0.9));
-    border: 1px solid #6b2cf5;
-    box-shadow: 0 0 15px rgba(107, 44, 245, 0.2);
-}
-
-.curiosity-item h3 {
-    color: #ff66ff;
-    font-family: 'Cinzel', serif;
-    margin-bottom: 1rem;
-    text-shadow: 0 0 5px rgba(255, 102, 255, 0.5);
 } 
