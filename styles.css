@@ -399,18 +399,19 @@ section {
 .track-number {
     color: var(--color-neon-purple);
     font-weight: bold;
-    min-width: 30px;
+    min-width: 25px;
     font-size: 0.9rem;
 }
 
 .track-title {
     color: var(--color-light);
-    flex: 1;
+    flex: 0 1 auto;
     margin-right: 15px;
     font-size: 0.9rem;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
+    min-width: 160px;
 }
 
 .custom-audio-player {
@@ -421,8 +422,8 @@ section {
     border: 1px solid var(--color-neon-purple);
     border-radius: 30px;
     padding: 6px 12px;
-    width: 100%;
-    max-width: 400px;
+    width: 260px;
+    min-width: 260px;
 }
 
 .player-controls {
@@ -439,7 +440,7 @@ section {
     font-size: 1.2rem;
     cursor: pointer;
     padding: 5px;
-    min-width: 30px;
+    min-width: 25px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -458,7 +459,9 @@ section {
     border-radius: 2px;
     position: relative;
     cursor: pointer;
-    margin: 0 8px;
+    margin: 0 6px;
+    width: 100px;
+    min-width: 100px;
 }
 
 .progress {
@@ -475,7 +478,7 @@ section {
     display: flex;
     align-items: center;
     gap: 6px;
-    min-width: 80px;
+    min-width: 70px;
 }
 
 .volume-icon {
@@ -486,7 +489,7 @@ section {
 
 .volume-slider {
     -webkit-appearance: none;
-    width: 50px;
+    width: 40px;
     height: 4px;
     background: rgba(128, 128, 128, 0.3);
     border-radius: 2px;
@@ -549,19 +552,27 @@ section {
 
 @media (max-width: 768px) {
     .custom-audio-player {
+        width: 220px;
+        min-width: 220px;
         padding: 4px 10px;
     }
 
+    .track-title {
+        min-width: 140px;
+        font-size: 0.85rem;
+    }
+
+    .progress-bar {
+        width: 80px;
+        min-width: 80px;
+    }
+
     .volume-control {
-        min-width: 70px;
+        min-width: 60px;
     }
 
     .volume-slider {
-        width: 40px;
-    }
-
-    .track-title {
-        font-size: 0.85rem;
+        width: 30px;
     }
 }
 
