@@ -96,13 +96,14 @@ body {
 
 /* Hero Section */
 .hero-section {
-    height: 100vh;
+    min-height: 100vh;
     display: flex;
-    align-items: center;
+    align-items: flex-start;
     justify-content: center;
     text-align: center;
     position: relative;
     background: linear-gradient(45deg, var(--color-black), var(--color-purple));
+    padding-top: 100px;
 }
 
 .hero-content {
@@ -121,18 +122,11 @@ body {
     animation: glitch 2s infinite;
 }
 
-.glitch-text {
-    font-family: 'Cinzel', serif;
-    font-size: 5rem;
-    color: var(--color-neon-purple);
-    text-shadow: 0 0 20px var(--color-neon-purple);
-    animation: glitch 2s infinite;
-}
-
 .cursed-text {
     font-size: 1.5rem;
     margin-top: 2rem;
     color: var(--color-crimson);
+    text-shadow: 0 0 10px var(--color-crimson);
 }
 
 /* Section Styles */
@@ -354,23 +348,23 @@ h2 {
 @keyframes glitch {
     0% {
         filter: drop-shadow(0 0 20px var(--color-neon-purple));
-        transform: translateX(0);
+        transform: translateY(0);
     }
     25% {
         filter: drop-shadow(-2px 0 var(--color-crimson)) drop-shadow(2px 2px var(--color-neon-purple));
-        transform: translateX(2px) translateY(2px);
+        transform: translateY(-2px);
     }
     50% {
         filter: drop-shadow(2px -2px var(--color-crimson)) drop-shadow(-2px -2px var(--color-neon-purple));
-        transform: translateX(-2px) translateY(-2px);
+        transform: translateY(2px);
     }
     75% {
         filter: drop-shadow(2px 0 var(--color-crimson)) drop-shadow(-2px -2px var(--color-neon-purple));
-        transform: translateX(2px) translateY(-2px);
+        transform: translateY(-1px);
     }
     100% {
         filter: drop-shadow(0 0 20px var(--color-neon-purple));
-        transform: translateX(0);
+        transform: translateY(0);
     }
 }
 
@@ -414,22 +408,6 @@ h2 {
     text-align: justify;
 }
 
-/* Top Banner Image */
-.top-image {
-    margin-top: 60px; /* Height of header */
-    width: 100%;
-    background: var(--color-black);
-    text-align: center;
-    padding: 2rem 0;
-}
-
-.banner-image {
-    max-width: 600px;
-    width: 90%;
-    height: auto;
-    filter: drop-shadow(0 0 20px var(--color-neon-purple));
-}
-
 /* Responsive Design */
 @media (max-width: 768px) {
     .nav-menu {
@@ -459,7 +437,7 @@ h2 {
         max-width: 90%;
     }
 
-    .glitch-text {
+    .cursed-text {
         font-size: 3rem;
     }
 
@@ -476,9 +454,8 @@ h2 {
         padding: 1.5rem;
     }
 
-    .top-image {
-        margin-top: 50px;
-        padding: 1rem 0;
+    .hero-section {
+        padding-top: 80px;
     }
 
     .band-members,
