@@ -161,43 +161,32 @@ document.addEventListener('DOMContentLoaded', function() {
 
 // Gerenciamento de comentários
 document.addEventListener('DOMContentLoaded', () => {
-    // Inicializar todos os players de áudio
-    var audioPlayers = document.querySelectorAll('.custom-audio-player');
-    var currentlyPlaying = null;
+    // Seleciona todos os players de áudio
+    const audioPlayers = document.querySelectorAll('.custom-audio-player');
+    let currentlyPlaying = null;
 
-    function updateVolumeIcon(volumeIcon, volume) {
-        if (volume === 0) {
-            volumeIcon.textContent = '🔇';
-        } else if (volume < 0.5) {
-            volumeIcon.textContent = '🔉';
-        } else {
-            volumeIcon.textContent = '🔊';
-        }
-    }
+    audioPlayers.forEach(function(player) {
+        const audio = player.querySelector('audio');
+        const playButton = player.querySelector('.play-button');
+        const progressBar = player.querySelector('.progress');
+        const volumeSlider = player.querySelector('.volume-slider');
+        const volumeIcon = player.querySelector('.volume-icon');
 
-    function setupAudioPlayer(player) {
-        var audio = player.querySelector('audio');
-        var playButton = player.querySelector('.play-button');
-        var progressBar = player.querySelector('.progress');
-        var volumeSlider = player.querySelector('.volume-slider');
-        var volumeIcon = player.querySelector('.volume-icon');
-
-        if (!audio || !playButton || !progressBar || !volumeSlider || !volumeIcon) {
-            return;
+        // Definir volume inicial
+        if (audio) {
+            audio.volume = 0.2;
+            volumeSlider.value = 20;
         }
 
-        audio.volume = 0.2;
-        volumeSlider.value = 20;
-        updateVolumeIcon(volumeIcon, 0.2);
-
+        // Controle de Play/Pause
         playButton.addEventListener('click', function() {
+            if (!audio) return;
+
             if (audio.paused) {
                 if (currentlyPlaying && currentlyPlaying !== audio) {
                     currentlyPlaying.pause();
-                    var prevButton = currentlyPlaying.parentElement.querySelector('.play-button');
-                    if (prevButton) {
-                        prevButton.textContent = '▶';
-                    }
+                    const prevButton = currentlyPlaying.parentElement.querySelector('.play-button');
+                    if (prevButton) prevButton.textContent = '▶';
                 }
                 audio.play().catch(function(error) {
                     console.error('Erro ao tocar áudio:', error);
@@ -211,32 +200,47 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
 
-        audio.addEventListener('timeupdate', function() {
-            var progress = (audio.currentTime / audio.duration) * 100;
-            progressBar.style.width = progress + '%';
-        });
+        // Atualizar barra de progresso
+        if (audio) {
+            audio.addEventListener('timeupdate', function() {
+                const progress = (audio.currentTime / audio.duration) * 100;
+                progressBar.style.width = progress + '%';
+            });
 
-        volumeSlider.addEventListener('input', function() {
-            var newVolume = volumeSlider.value / 100;
-            audio.volume = newVolume;
-            updateVolumeIcon(volumeIcon, newVolume);
-        });
+            // Controle de volume
+            volumeSlider.addEventListener('input', function() {
+                audio.volume = volumeSlider.value / 100;
+                updateVolumeIcon(audio.volume);
+            });
 
-        audio.addEventListener('ended', function() {
-            playButton.textContent = '▶';
-            currentlyPlaying = null;
-        });
+            // Quando a música termina
+            audio.addEventListener('ended', function() {
+                playButton.textContent = '▶';
+                currentlyPlaying = null;
+            });
 
-        audio.addEventListener('error', function(e) {
-            console.error('Erro no áudio:', e);
-            playButton.textContent = '⚠';
-            playButton.disabled = true;
-        });
-    }
+            // Tratamento de erros
+            audio.addEventListener('error', function(e) {
+                console.error('Erro no áudio:', e);
+                playButton.textContent = '⚠';
+                playButton.disabled = true;
+            });
+        }
 
-    for (var i = 0; i < audioPlayers.length; i++) {
-        setupAudioPlayer(audioPlayers[i]);
-    }
+        // Função para atualizar o ícone de volume
+        function updateVolumeIcon(volume) {
+            if (volume === 0) {
+                volumeIcon.textContent = '🔇';
+            } else if (volume < 0.5) {
+                volumeIcon.textContent = '🔉';
+            } else {
+                volumeIcon.textContent = '🔊';
+            }
+        }
+
+        // Definir ícone de volume inicial
+        updateVolumeIcon(0.2);
+    });
 
     // Comments functionality
     const commentsList = document.querySelector('.comments-list');
