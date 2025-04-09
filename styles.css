@@ -1763,7 +1763,7 @@ section {
 }
 
 .comment.permanent.fade-in {
-    animation: fadeInComment 0.5s ease-in;
+    animation: fadeInComment 0.5s ease-out forwards;
 }
 
 @keyframes fadeInComment {
@@ -1783,7 +1783,7 @@ section {
 
 .hidden-comments.visible {
     display: block;
-    animation: fadeInComment 0.5s ease-in;
+    animation: fadeInComment 0.5s ease-out forwards;
 }
 
 .comment.permanent.collapsed {
@@ -1791,7 +1791,7 @@ section {
 }
 
 .comment.permanent.fade-in {
-    animation: fadeInComment 0.5s ease-in;
+    animation: fadeInComment 0.5s ease-out forwards;
 }
 
 @keyframes fadeInComment {

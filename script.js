@@ -159,132 +159,40 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 });
 
-// Audio Player Functionality
-document.querySelectorAll('.custom-audio-player').forEach(player => {
-    const audio = new Audio(player.dataset.audio);
-    const playButton = player.querySelector('.play-button');
-    const progressBar = player.querySelector('.progress-bar');
-    const progress = player.querySelector('.progress');
-    const volumeControl = player.querySelector('.volume-control');
-    
-    let isPlaying = false;
-
-    playButton.addEventListener('click', () => {
-        if (isPlaying) {
-            audio.pause();
-            playButton.textContent = '▶';
-        } else {
-            // Pause all other playing audio
-            document.querySelectorAll('.custom-audio-player').forEach(otherPlayer => {
-                if (otherPlayer !== player) {
-                    const otherButton = otherPlayer.querySelector('.play-button');
-                    if (otherButton.textContent === '⏸') {
-                        otherButton.click();
-                    }
-                }
-            });
-            
-            audio.play();
-            playButton.textContent = '⏸';
-        }
-        isPlaying = !isPlaying;
-    });
-
-    audio.addEventListener('timeupdate', () => {
-        const percentage = (audio.currentTime / audio.duration) * 100;
-        progress.style.width = percentage + '%';
-    });
-
-    audio.addEventListener('ended', () => {
-        playButton.textContent = '▶';
-        isPlaying = false;
-        progress.style.width = '0%';
-    });
-
-    progressBar.addEventListener('click', (e) => {
-        const rect = progressBar.getBoundingClientRect();
-        const percentage = (e.clientX - rect.left) / rect.width;
-        audio.currentTime = percentage * audio.duration;
-    });
-
-    volumeControl.addEventListener('click', (e) => {
-        const rect = volumeControl.getBoundingClientRect();
-        const volume = (e.clientX - rect.left) / rect.width;
-        audio.volume = Math.max(0, Math.min(1, volume));
-    });
-});
-
-// Configurar volume padrão mais baixo para todos os players
-document.querySelectorAll('.volume-slider').forEach(slider => {
-    slider.value = 20; // Define o volume para 20%
-    const audio = slider.closest('.custom-audio-player').previousElementSibling.dataset.src;
-    if (audio) {
-        const audioElement = new Audio(audio);
-        audioElement.volume = 0.2; // Define o volume para 20%
-    }
-});
-
 // Gerenciamento de comentários
-document.addEventListener('DOMContentLoaded', function() {
-    const commentForm = document.getElementById('commentForm');
-    const userCommentsList = document.querySelector('.user-comments .comments-list');
-    const showMoreBtn = document.getElementById('showMoreOfficialComments');
-    const hiddenComments = document.querySelector('.hidden-comments');
-
-    // Carregar comentários do localStorage
-    let comments = JSON.parse(localStorage.getItem('comments')) || [];
-
-    // Mostrar mais comentários oficiais
-    if (showMoreBtn && hiddenComments) {
-        showMoreBtn.addEventListener('click', function() {
-            hiddenComments.classList.add('visible');
-            showMoreBtn.style.display = 'none';
-        });
-    }
-
-    // Adicionar novo comentário
-    commentForm.addEventListener('submit', function(e) {
-        e.preventDefault();
-        
-        const name = document.getElementById('commentName').value;
-        const text = document.getElementById('commentText').value;
-        const date = new Date().toLocaleDateString();
-        const id = Date.now();
-
-        const newComment = {
-            id: id,
-            name: name,
-            text: text,
-            date: date
-        };
-
-        comments.unshift(newComment);
-        localStorage.setItem('comments', JSON.stringify(comments));
-        
-        // Criar e adicionar o novo comentário ao DOM
-        const commentElement = createCommentElement(newComment);
-        userCommentsList.insertBefore(commentElement, userCommentsList.firstChild);
-        
-        // Limpar o formulário
-        commentForm.reset();
-    });
-
-    // Excluir comentário
-    userCommentsList.addEventListener('click', function(e) {
-        if (e.target.classList.contains('delete-comment')) {
-            const commentId = parseInt(e.target.dataset.id);
-            const commentElement = e.target.closest('.comment');
+document.addEventListener('DOMContentLoaded', () => {
+    // Audio player setup
+    const audioPlayers = document.querySelectorAll('audio');
+    const volumeSliders = document.querySelectorAll('.volume-slider');
+    
+    audioPlayers.forEach((player, index) => {
+        // Set initial volume
+        player.volume = 0.2;
+        if (volumeSliders[index]) {
+            volumeSliders[index].value = 20;
             
-            if (confirm('Tem certeza que deseja excluir este comentário?')) {
-                comments = comments.filter(comment => comment.id !== commentId);
-                localStorage.setItem('comments', JSON.stringify(comments));
-                commentElement.remove();
-            }
+            // Volume control
+            volumeSliders[index].addEventListener('input', (e) => {
+                const volume = e.target.value / 100;
+                player.volume = volume;
+            });
         }
+        
+        // Error handling for audio
+        player.addEventListener('error', (e) => {
+            console.error('Error loading audio:', e);
+            const trackName = player.querySelector('source') ? player.querySelector('source').src : 'Unknown track';
+            console.log('Failed to load:', trackName);
+        });
     });
-
-    // Função para criar elemento de comentário
-    function createCommentElement(comment) {
+    
+    // Comments functionality
+    const commentsList = document.querySelector('.comments-list');
+    const loadMoreBtn = document.querySelector('.load-more-btn');
+    const hiddenComments = document.querySelector('.hidden-comments');
+    
+    // Create comment element function
+    const createCommentElement = (comment) => {
         const div = document.createElement('div');
         div.className = 'comment';
         div.innerHTML = `
@@ -296,13 +204,88 @@ document.addEventListener('DOMContentLoaded', function() {
             <button class="delete-comment" data-id="${comment.id}">Excluir</button>
         `;
         return div;
+    };
+    
+    // Load comments function
+    const loadComments = () => {
+        const savedComments = JSON.parse(localStorage.getItem('comments') || '[]');
+        if (commentsList) {
+            savedComments.forEach(comment => {
+                const commentElement = createCommentElement(comment);
+                commentsList.appendChild(commentElement);
+            });
+        }
+    };
+    
+    // Handle "Ler mais" button
+    if (loadMoreBtn && hiddenComments) {
+        loadMoreBtn.addEventListener('click', () => {
+            hiddenComments.classList.add('visible');
+            loadMoreBtn.style.display = 'none';
+            
+            // Animate hidden comments
+            const comments = hiddenComments.querySelectorAll('.comment');
+            comments.forEach((comment, index) => {
+                setTimeout(() => {
+                    comment.classList.add('fade-in');
+                }, index * 100);
+            });
+        });
     }
-
-    // Carregar comentários existentes dos usuários
-    comments.forEach(comment => {
-        const commentElement = createCommentElement(comment);
-        userCommentsList.appendChild(commentElement);
-    });
+    
+    // Initialize comments
+    loadComments();
+    
+    // Gallery popup functionality
+    const galleryItems = document.querySelectorAll('.gallery-item');
+    const popup = document.querySelector('.gallery-popup');
+    const popupImage = popup ? popup.querySelector('.popup-image') : null;
+    const popupCaption = popup ? popup.querySelector('.popup-caption') : null;
+    const closeButton = popup ? popup.querySelector('.close-popup') : null;
+    
+    const openPopup = (imageSrc, caption) => {
+        if (popup && popupImage && popupCaption) {
+            popupImage.src = imageSrc;
+            popupCaption.textContent = caption;
+            popup.classList.add('popup-visible');
+            document.body.style.overflow = 'hidden';
+        }
+    };
+    
+    const closePopup = () => {
+        if (popup) {
+            popup.classList.remove('popup-visible');
+            document.body.style.overflow = '';
+        }
+    };
+    
+    if (galleryItems && popup) {
+        galleryItems.forEach(item => {
+            item.addEventListener('click', () => {
+                const img = item.querySelector('img');
+                const caption = item.querySelector('.gallery-caption');
+                if (img && caption) {
+                    openPopup(img.src, caption.textContent);
+                }
+            });
+        });
+        
+        if (closeButton) {
+            closeButton.addEventListener('click', closePopup);
+        }
+        
+        popup.addEventListener('click', (e) => {
+            if (e.target === popup) {
+                closePopup();
+            }
+        });
+        
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && popup.classList.contains('popup-visible')) {
+                closePopup();
+            }
+        });
+    }
 });
 
 @keyframes fadeIn {
@@ -314,48 +297,4 @@ document.addEventListener('DOMContentLoaded', function() {
         opacity: 1;
         transform: translateY(0);
     }
-}
-
-// Gallery Popup Functionality
-document.addEventListener('DOMContentLoaded', function() {
-    const popup = document.querySelector('.gallery-popup');
-    const popupImage = popup.querySelector('.popup-image');
-    const popupCaption = popup.querySelector('.popup-caption');
-    const closeButton = popup.querySelector('.close-popup');
-
-    // Abrir popup ao clicar em uma imagem da galeria
-    document.querySelectorAll('.gallery-item').forEach(item => {
-        item.addEventListener('click', function() {
-            const img = this.querySelector('img');
-            const caption = this.querySelector('.gallery-caption').textContent;
-            
-            popupImage.src = img.src;
-            popupImage.alt = img.alt;
-            popupCaption.textContent = caption;
-            popup.classList.add('popup-visible');
-            document.body.style.overflow = 'hidden'; // Previne rolagem
-        });
-    });
-
-    // Fechar popup ao clicar no botão de fechar
-    closeButton.addEventListener('click', function() {
-        popup.classList.remove('popup-visible');
-        document.body.style.overflow = ''; // Restaura rolagem
-    });
-
-    // Fechar popup ao clicar fora da imagem
-    popup.addEventListener('click', function(e) {
-        if (e.target === popup) {
-            popup.classList.remove('popup-visible');
-            document.body.style.overflow = ''; // Restaura rolagem
-        }
-    });
-
-    // Fechar popup com tecla ESC
-    document.addEventListener('keydown', function(e) {
-        if (e.key === 'Escape' && popup.classList.contains('popup-visible')) {
-            popup.classList.remove('popup-visible');
-            document.body.style.overflow = ''; // Restaura rolagem
-        }
-    });
-}); 
+} 
